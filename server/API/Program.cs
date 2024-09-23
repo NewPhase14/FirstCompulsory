@@ -31,7 +31,7 @@ public class Program
         });
         builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaperValidator>());
         builder.Services.AddScoped<IDunderMifflinRepository, DunderMifflinRepository>();
-        builder.Services.AddScoped<IHospitalService, HospitalService>();
+        builder.Services.AddScoped<IDunderMifflinService, DunderMifflinService>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();
 

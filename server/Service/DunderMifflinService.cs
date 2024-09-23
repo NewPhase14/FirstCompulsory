@@ -26,8 +26,65 @@ public interface IDunderMifflinService
 }
 
 
-public class DunderMifflinService
+public class DunderMifflinService() : IDunderMifflinService 
 {
-    
-    
+    public OrderDto CreateOrder(CreateOrderDto createOrderDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public OrderDto DeleteOrder(DeleteOrderDto deleteOrderDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public OrderDto GetAllOrders()
+    {
+        throw new NotImplementedException();
+    }
+
+    public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CustomerDto UpdateCustomer(UpdateCustomerDto updateCustomerDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CustomerDto DeleteCustomer(DeleteCustomerDto deleteCustomerDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public CustomerDto GetAllCustomers()
+    {
+        throw new NotImplementedException();
+    }
+
+    public PaperDto CreatePaper(CreatePaperDto createPaperDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public PaperDto DeletePaper(DeletePaperDto deletePaperDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    public PaperDto GetAllPapers()
+    {
+        throw new NotImplementedException();
+    }
 }
