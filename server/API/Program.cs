@@ -30,7 +30,7 @@ public class Program
             options.EnableSensitiveDataLogging();
         });
         builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaperValidator>());
-        builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
+        builder.Services.AddScoped<IDunderMifflinRepository, DunderMifflinRepository>();
         builder.Services.AddScoped<IHospitalService, HospitalService>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();
