@@ -1,5 +1,8 @@
+using DataAccess;
+using FluentValidation;
 using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
+using Service.Validators;
 
 namespace Service;
 
@@ -26,7 +29,7 @@ public interface IDunderMifflinService
 }
 
 
-public class DunderMifflinService() : IDunderMifflinService 
+public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerValidator, IValidator<UpdateCustomerDto> updateCustomerValidator, DunderMifflinContext context) : IDunderMifflinService 
 {
     public OrderDto CreateOrder(CreateOrderDto createOrderDto)
     {
@@ -50,12 +53,20 @@ public class DunderMifflinService() : IDunderMifflinService
 
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto)
     {
-        throw new NotImplementedException();
+        createCustomerValidator.ValidateAndThrow(createCustomerDto);
+        var customer = createCustomerDto.ToCustomer();
+        context.Customers.Add(customer);
+        context.SaveChanges();
+        return new CustomerDto().FromEntity(customer);
     }
 
     public CustomerDto UpdateCustomer(UpdateCustomerDto updateCustomerDto)
     {
-        throw new NotImplementedException();
+        updateCustomerValidator.ValidateAndThrow(updateCustomerDto);
+        var customer = updateCustomerDto.ToCustomer();
+        context.Customers.Update(customer);
+        return new CustomerDto().FromEntity(customer);
+        
     }
 
     public CustomerDto DeleteCustomer(DeleteCustomerDto deleteCustomerDto)
