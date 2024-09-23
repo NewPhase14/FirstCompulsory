@@ -1,18 +1,19 @@
-import {useAtom} from "jotai";
-import {PatientsAtom} from "./atoms/PatientsAtom.tsx";
-import {useEffect} from "react";
-import {http} from "./http.ts";
+import { useAtom } from "jotai";
+import { CustomerAtom } from "./atoms/CustomerAtom.tsx";
+import { useEffect } from "react";
+import { http } from "./http.ts";
 
 export function useInitializeData() {
-    
-    const [, setPatients] = useAtom(PatientsAtom);
-    
-    
-    useEffect(() => {
-        http.api.patientGetAllPatients().then((response) => {
-            setPatients(response.data);
-        }).catch(e => {
-            console.log(e)
-        })
-    }, [])
+  const [, setCustomers] = useAtom(CustomerAtom);
+
+  useEffect(() => {
+    http.api
+      .customerGetAllCustomers()
+      .then((response) => {
+        setCustomers(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, []);
 }

@@ -1,7 +1,6 @@
 using System.Text.Json;
 using API.Middleware;
 using DataAccess;
-using DataAccess.Interfaces;
 using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -29,8 +28,7 @@ public class Program
             Console.WriteLine(appOptions);
             options.EnableSensitiveDataLogging();
         });
-        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaperValidator>());
-        builder.Services.AddScoped<IDunderMifflinRepository, DunderMifflinRepository>();
+        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerValidator>());
         builder.Services.AddScoped<IDunderMifflinService, DunderMifflinService>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();

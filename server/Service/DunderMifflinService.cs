@@ -1,4 +1,5 @@
 using DataAccess;
+using DataAccess.Models;
 using FluentValidation;
 using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
@@ -19,7 +20,7 @@ public interface IDunderMifflinService
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
     public CustomerDto UpdateCustomer(UpdateCustomerDto updateCustomerDto);
     public CustomerDto DeleteCustomer(DeleteCustomerDto deleteCustomerDto);
-    public CustomerDto GetAllCustomers();
+    public List<Customer> GetAllCustomers();
     
     //Paper
     public PaperDto CreatePaper(CreatePaperDto createPaperDto);
@@ -74,9 +75,9 @@ public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerVa
         throw new NotImplementedException();
     }
 
-    public CustomerDto GetAllCustomers()
+    public List<Customer> GetAllCustomers()
     {
-        throw new NotImplementedException();
+        return context.Customers.ToList();
     }
 
     public PaperDto CreatePaper(CreatePaperDto createPaperDto)
