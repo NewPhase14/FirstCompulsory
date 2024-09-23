@@ -29,7 +29,7 @@ public class Program
             Console.WriteLine(appOptions);
             options.EnableSensitiveDataLogging();
         });
-        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePatientValidator>());
+        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePaperValidator>());
         builder.Services.AddScoped<IHospitalRepository, HospitalRepository>();
         builder.Services.AddScoped<IHospitalService, HospitalService>();
         builder.Services.AddControllers();
