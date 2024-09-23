@@ -13,7 +13,7 @@ namespace ServiceTests.RealDependencies;
 
 public class HospitalServiceTests
 {
-     private readonly PgCtxSetup<HospitalContext> _pgCtxSetup = new();
+     private readonly PgCtxSetup<DunderMifflinContext> _pgCtxSetup = new();
      private readonly HospitalService _hospitalService;
 
      public HospitalServiceTests()

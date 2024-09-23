@@ -4,6 +4,6 @@ dotnet ef dbcontext scaffold \
   Npgsql.EntityFrameworkCore.PostgreSQL \
   --output-dir ./Models \
   --context-dir . \
-  --context HospitalContext  \
+  --context DunderMifflinContext  \
   --no-onconfiguring \
   --force

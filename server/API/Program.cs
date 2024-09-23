@@ -21,11 +21,12 @@ public class Program
             .ValidateDataAnnotations()
             .Validate(options => new AppOptionsValidator().Validate(options).IsValid,
                 $"{nameof(AppOptions)} validation failed");
-        builder.Services.AddDbContext<HospitalContext>((serviceProvider, options) =>
+        builder.Services.AddDbContext<DunderMifflinContext>((serviceProvider, options) =>
         {
             var appOptions = serviceProvider.GetRequiredService<IOptions<AppOptions>>().Value;
             options.UseNpgsql(Environment.GetEnvironmentVariable("DbConnectionString") 
                               ?? appOptions.DbConnectionString);
+            Console.WriteLine(appOptions);
             options.EnableSensitiveDataLogging();
         });
         builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreatePatientValidator>());
@@ -55,7 +56,7 @@ public class Program
 
         using (var scope = app.Services.CreateScope())
         {
-            var context = scope.ServiceProvider.GetRequiredService<HospitalContext>();
+            var context = scope.ServiceProvider.GetRequiredService<DunderMifflinContext>();
             context.Database.EnsureCreated();
         }
 
