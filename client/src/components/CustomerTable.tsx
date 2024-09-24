@@ -1,14 +1,9 @@
-import React, { useEffect } from "react";
-import { useAtom } from "jotai";
+import React from "react";
+import { useAtom } from "jotai/index";
 import { CustomerAtom } from "../atoms/CustomerAtom.tsx";
-import { useInitializeData } from "../useInitializeData.ts";
 
-export default function Home() {
+export default function CustomerTable() {
   const [customers, setCustomers] = useAtom(CustomerAtom);
-
-  useEffect(() => {}, []);
-
-  useInitializeData();
 
   return (
     <div className="overflow-x-auto">
