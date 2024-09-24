@@ -3,7 +3,6 @@ using DataAccess.Models;
 using FluentValidation;
 using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
-using Service.Validators;
 
 namespace Service;
 
