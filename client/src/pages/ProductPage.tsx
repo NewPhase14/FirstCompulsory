@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useInitializeData } from "../useInitializeData.ts";
 import Navbar from "../components/Navbar.tsx";
+import PaperTable from "../components/PaperTable.tsx";
 
 export default function ProductPage() {
   useEffect(() => {}, []);
@@ -10,7 +11,7 @@ export default function ProductPage() {
   return (
     <>
       <Navbar />
-      <h1>Product Page</h1>
+      <PaperTable />
     </>
   );
 }

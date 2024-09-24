@@ -2,6 +2,7 @@
 import Dunder from "../assets/DunderMifflin-Logo.png";
 // @ts-ignore
 import Account from "../assets/Account.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -12,8 +13,12 @@ export default function Navbar() {
         </a>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl mx-10">Home</a>
-        <a className="btn btn-ghost text-xl mx-10">Products</a>
+        <Link to="/" className="btn btn-ghost text-xl mx-10">
+          Home
+        </Link>
+        <Link to="/products" className="btn btn-ghost text-xl mx-10">
+          Products
+        </Link>
         <input
           type="text"
           placeholder="Type here"

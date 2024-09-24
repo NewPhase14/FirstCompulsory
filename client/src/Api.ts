@@ -84,6 +84,26 @@ export interface UpdateCustomerDto {
   email?: string | null;
 }
 
+export interface CreatePaperDto {
+  name?: string;
+  discontinued?: boolean;
+  /** @format int32 */
+  stock?: number;
+  /** @format double */
+  price?: number;
+}
+
+export interface UpdatePaperDto {
+  /** @format int32 */
+  id?: number;
+  name?: string;
+  discontinued?: boolean;
+  /** @format int32 */
+  stock?: number;
+  /** @format double */
+  price?: number;
+}
+
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
 import axios from "axios";
 
@@ -269,6 +289,55 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     customerGetAllCustomers: (params: RequestParams = {}) =>
       this.request<Customer[], any>({
         path: `/api/Customer`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperCreatePaper
+     * @request POST:/api/Paper
+     */
+    paperCreatePaper: (data: CreatePaperDto, params: RequestParams = {}) =>
+      this.request<Paper, any>({
+        path: `/api/Paper`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperUpdatePaper
+     * @request PUT:/api/Paper
+     */
+    paperUpdatePaper: (data: UpdatePaperDto, params: RequestParams = {}) =>
+      this.request<Paper, any>({
+        path: `/api/Paper`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperGetAllPapers
+     * @request GET:/api/Paper
+     */
+    paperGetAllPapers: (params: RequestParams = {}) =>
+      this.request<Paper[], any>({
+        path: `/api/Paper`,
         method: "GET",
         format: "json",
         ...params,
