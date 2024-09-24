@@ -26,11 +26,16 @@ public interface IDunderMifflinService
     public PaperDto CreatePaper(CreatePaperDto createPaperDto);
     public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto);
     public PaperDto DeletePaper(DeletePaperDto deletePaperDto);
-    public PaperDto GetAllPapers();
+    public List<Paper> GetAllPapers();
 }
 
 
-public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerValidator, IValidator<UpdateCustomerDto> updateCustomerValidator, DunderMifflinContext context) : IDunderMifflinService 
+public class DunderMifflinService(
+    IValidator<CreateCustomerDto> createCustomerValidator, 
+    IValidator<UpdateCustomerDto> updateCustomerValidator, 
+    IValidator<CreatePaperDto> createPaperValidator,
+    IValidator<UpdatePaperDto> updatePaperValidator,
+    DunderMifflinContext context) : IDunderMifflinService 
 {
     public OrderDto CreateOrder(CreateOrderDto createOrderDto)
     {
@@ -66,6 +71,7 @@ public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerVa
         updateCustomerValidator.ValidateAndThrow(updateCustomerDto);
         var customer = updateCustomerDto.ToCustomer();
         context.Customers.Update(customer);
+        context.SaveChanges();
         return new CustomerDto().FromEntity(customer);
         
     }
@@ -77,17 +83,25 @@ public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerVa
 
     public List<Customer> GetAllCustomers()
     {
-        return context.Customers.ToList();
+        return context.Customers.OrderBy(c => c.Id).ToList();
     }
 
     public PaperDto CreatePaper(CreatePaperDto createPaperDto)
     {
-        throw new NotImplementedException();
+        createPaperValidator.ValidateAndThrow(createPaperDto);
+        var paper = createPaperDto.ToPaper();
+        context.Papers.Add(paper);
+        context.SaveChanges();
+        return new PaperDto().FromEntity(paper);
     }
 
     public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto)
     {
-        throw new NotImplementedException();
+        updatePaperValidator.ValidateAndThrow(updatePaperDto);
+        var paper = updatePaperDto.ToPaper();
+        context.Papers.Update(paper);
+        context.SaveChanges();
+        return new PaperDto().FromEntity(paper);
     }
 
     public PaperDto DeletePaper(DeletePaperDto deletePaperDto)
@@ -95,8 +109,8 @@ public class DunderMifflinService(IValidator<CreateCustomerDto> createCustomerVa
         throw new NotImplementedException();
     }
 
-    public PaperDto GetAllPapers()
+    public List<Paper> GetAllPapers()
     {
-        throw new NotImplementedException();
+        return context.Papers.OrderBy(p => p.Id).ToList();
     }
 }

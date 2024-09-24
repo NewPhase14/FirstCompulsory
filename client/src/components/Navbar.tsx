@@ -1,5 +1,5 @@
 // @ts-ignore
-import Dunder from "../assets/LogoDunderMifflin.png";
+import Dunder from "../assets/DunderMifflin-Logo.png";
 // @ts-ignore
 import Account from "../assets/Account.png";
 
@@ -12,12 +12,12 @@ export default function Navbar() {
         </a>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">Home</a>
-        <a className="btn btn-ghost text-xl">Products</a>
+        <a className="btn btn-ghost text-xl mx-10">Home</a>
+        <a className="btn btn-ghost text-xl mx-10">Products</a>
         <input
           type="text"
           placeholder="Type here"
-          className="input input-bordered w-full max-w-xs"
+          className="input input-bordered w-full max-w-xs mx-10"
         />
       </div>
       <div className="navbar-end">
