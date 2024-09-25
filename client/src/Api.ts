@@ -345,5 +345,35 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         format: "json",
         ...params,
       }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperDeletePaper
+     * @request DELETE:/api/Paper/{id}
+     */
+    paperDeletePaper: (id: number, params: RequestParams = {}) =>
+      this.request<Paper, any>({
+        path: `/api/Paper/${id}`,
+        method: "DELETE",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperGetPaperById
+     * @request GET:/api/Paper/{id}
+     */
+    paperGetPaperById: (id: number, params: RequestParams = {}) =>
+      this.request<Paper, any>({
+        path: `/api/Paper/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
   };
 }

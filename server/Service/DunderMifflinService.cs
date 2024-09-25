@@ -1,6 +1,7 @@
 using DataAccess;
 using DataAccess.Models;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Service.TransferModels.Requests;
 using Service.TransferModels.Responses;
 
@@ -24,8 +25,9 @@ public interface IDunderMifflinService
     //Paper
     public PaperDto CreatePaper(CreatePaperDto createPaperDto);
     public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto);
-    public PaperDto DeletePaper(DeletePaperDto deletePaperDto);
+    public void DeletePaper(int id);
     public List<Paper> GetAllPapers();
+    public PaperDto GetPaperById(int id);
 }
 
 
@@ -103,13 +105,19 @@ public class DunderMifflinService(
         return new PaperDto().FromEntity(paper);
     }
 
-    public PaperDto DeletePaper(DeletePaperDto deletePaperDto)
+    public void DeletePaper(int id)
     {
-        throw new NotImplementedException();
+        context.Papers.Where(p => p.Id == id).ExecuteDelete();
     }
 
     public List<Paper> GetAllPapers()
     {
         return context.Papers.OrderBy(p => p.Id).ToList();
+    }
+    
+    public PaperDto GetPaperById(int id)
+    {
+        var paper = context.Papers.Find(id);
+        return new PaperDto().FromEntity(paper);
     }
 }

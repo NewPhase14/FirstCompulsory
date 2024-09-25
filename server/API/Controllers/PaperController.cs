@@ -24,6 +24,14 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
         var paper = service.UpdatePaper(updatePaperDto);
         return Ok(paper);
     }
+    
+    [HttpDelete]
+    [Route("/api/[controller]/{id}")]
+    public ActionResult<Paper> DeletePaper(int id)
+    {
+        service.DeletePaper(id);
+        return NoContent();
+    }
 
     [HttpGet]
     [Route("")]
@@ -31,5 +39,13 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
     {
         var papers = service.GetAllPapers();
         return Ok(papers);
+    }
+    
+    [HttpGet]
+    [Route("/api/[controller]/{id}")]
+    public ActionResult<Paper> GetPaperById(int id)
+    {
+        var paper = service.GetPaperById(id);
+        return Ok(paper);
     }
 }
