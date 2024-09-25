@@ -4,8 +4,8 @@ import React, { StrictMode } from "react";
 import "jotai-devtools/styles.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
-import ProductPage from "./pages/ProductPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
+import ProductCatalog from "./pages/ProductCatalog.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/products",
-    element: <ProductPage />,
+    element: <ProductCatalog />,
   },
 ]);
 

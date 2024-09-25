@@ -57,6 +57,7 @@ export interface Paper {
   stock?: number;
   /** @format double */
   price?: number;
+  picture?: string | null;
   orderEntries?: OrderEntry[];
   properties?: Property[];
 }
@@ -91,6 +92,7 @@ export interface CreatePaperDto {
   stock?: number;
   /** @format double */
   price?: number;
+  picture?: string;
 }
 
 export interface UpdatePaperDto {
@@ -102,6 +104,7 @@ export interface UpdatePaperDto {
   stock?: number;
   /** @format double */
   price?: number;
+  picture?: string;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";

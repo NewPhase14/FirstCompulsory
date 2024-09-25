@@ -14,6 +14,8 @@ public class PaperDto
     public int Stock { get; set; }
 
     public double Price { get; set; }
+    
+    public string Picture { get; set; }
 
     public ICollection<OrderEntry> OrderEntries { get; set; } 
 
@@ -28,6 +30,7 @@ public class PaperDto
             Discontinued = paper.Discontinued,
             Stock = paper.Stock,
             Price = paper.Price,
+            Picture = paper.Picture,
             OrderEntries = paper.OrderEntries,
             Properties = paper.Properties
         };

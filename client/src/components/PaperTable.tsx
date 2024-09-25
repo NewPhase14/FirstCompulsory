@@ -6,31 +6,24 @@ export default function PaperTable() {
   const [papers, setPapers] = useAtom(PaperAtom);
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Paper Name</th>
-            <th>Paper Discontinued?</th>
-            <th>Paper Stock</th>
-            <th>Paper Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {papers?.map((paper) => {
-            return (
-              <tr key={paper.id}>
-                <td>{paper.id}</td>
-                <td>{paper.name}</td>
-                <td>{paper.discontinued}</td>
-                <td>{paper.stock}</td>
-                <td>{paper.price}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+    <div className="grid grid-cols-3 gap-4 m-5">
+      {papers.map((paper) => {
+        return (
+          <div>
+            <figure>
+              <img src={paper.picture!} alt="Papers" />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{paper.name}</h2>
+              <p>{paper.name} is fantastic for just about everything</p>
+              <h3>${paper.price}</h3>
+              <div className="card-actions justify-end">
+                <button className="btn btn-primary">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
