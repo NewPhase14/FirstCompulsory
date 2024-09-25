@@ -16,7 +16,7 @@ export default function Navbar() {
         <Link to="/" className="btn btn-ghost text-xl mx-10">
           Home
         </Link>
-        <Link to="/products" className="btn btn-ghost text-xl mx-10">
+        <Link to="/product" className="btn btn-ghost text-xl mx-10">
           Products
         </Link>
         <input
@@ -69,16 +69,12 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
+              <Link to="/order" className="justify-between">
+                Order History
+              </Link>
             </li>
             <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
+              <Link to="/management">Product Management</Link>
             </li>
           </ul>
         </div>

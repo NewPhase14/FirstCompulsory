@@ -1,8 +1,9 @@
 import React from "react";
 import { useAtom } from "jotai/index";
 import { PaperAtom } from "../atoms/PaperAtom.tsx";
+import { Link } from "react-router-dom";
 
-export default function PaperTable() {
+export default function PaperCards() {
   const [papers, setPapers] = useAtom(PaperAtom);
 
   return (
@@ -10,9 +11,9 @@ export default function PaperTable() {
       {papers.map((paper) => {
         return (
           <div>
-            <figure>
-              <img src={paper.picture!} alt="Papers" />
-            </figure>
+            <Link key={paper.id} to={`/product/${paper.id}`}>
+              <img className="image" src={paper.picture!} alt="Papers" />
+            </Link>
             <div className="card-body">
               <h2 className="card-title">{paper.name}</h2>
               <p>{paper.name} is fantastic for just about everything</p>

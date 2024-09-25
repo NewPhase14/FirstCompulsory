@@ -1,10 +1,10 @@
 import Navbar from "../components/Navbar.tsx";
 
-export default function ProductPage() {
+export default function ProductManagementPage() {
   return (
     <>
       <Navbar />
-      <div>Product</div>
+      <div>ProductManagementPage</div>
     </>
   );
 }
