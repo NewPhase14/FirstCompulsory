@@ -13,13 +13,13 @@ public interface IDunderMifflinService
     //Order
     public OrderDto CreateOrder(CreateOrderDto createOrderDto);
     public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto);
-    public OrderDto DeleteOrder(DeleteOrderDto deleteOrderDto);
+    public void DeleteOrder(int id);
     public OrderDto GetAllOrders();
     
     //Customer
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
     public CustomerDto UpdateCustomer(UpdateCustomerDto updateCustomerDto);
-    public CustomerDto DeleteCustomer(DeleteCustomerDto deleteCustomerDto);
+    public void DeleteCustomer(int id);
     public List<Customer> GetAllCustomers();
     
     //Paper
@@ -48,7 +48,7 @@ public class DunderMifflinService(
         throw new NotImplementedException();
     }
 
-    public OrderDto DeleteOrder(DeleteOrderDto deleteOrderDto)
+    public void DeleteOrder(int id)
     {
         throw new NotImplementedException();
     }
@@ -77,7 +77,7 @@ public class DunderMifflinService(
         
     }
 
-    public CustomerDto DeleteCustomer(DeleteCustomerDto deleteCustomerDto)
+    public void DeleteCustomer(int id)
     {
         throw new NotImplementedException();
     }
