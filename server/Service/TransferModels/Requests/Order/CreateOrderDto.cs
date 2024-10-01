@@ -1,27 +1,24 @@
+using Service.TransferModels.Requests.OrderEntry;
+
+
 namespace Service.TransferModels.Requests.Order;
 
 public class CreateOrderDto
 {
-    public DateTime OrderDate { get; set; }
-
-    public DateOnly? DeliveryDate { get; set; }
-
-    public string Status { get; set; } = null!;
-
-    public double TotalAmount { get; set; }
-
     public int? CustomerId { get; set; }
 
-
-    public DataAccess.Models.Order ToOrder()
+    public ICollection<CreateOrderEntryDto> OrderEntries { get; set; } = new List<CreateOrderEntryDto>();
+    
+    public DataAccess.Models.Order ToOrder(double totalAmount, List<DataAccess.Models.OrderEntry> orderEntries)
     {
-        return new DataAccess.Models.Order
+        var order = new DataAccess.Models.Order
         {
-            OrderDate = OrderDate,
-            DeliveryDate = DeliveryDate,
-            Status = Status,
-            TotalAmount = TotalAmount,
-            CustomerId = CustomerId
+            OrderDate = DateTime.UtcNow,
+            DeliveryDate = DateOnly.FromDateTime(DateTime.Today.AddDays(3)),
+            TotalAmount = totalAmount,
+            CustomerId = this.CustomerId,
+            OrderEntries = orderEntries
         };
+        return order;
     }
 }

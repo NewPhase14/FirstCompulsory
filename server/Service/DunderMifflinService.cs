@@ -55,13 +55,29 @@ public class DunderMifflinService(
     IValidator<UpdatePropertyDto> updatePropertyValidator,
     IValidator<CreateOrderEntryDto> createOrderEntryValidator,
     IValidator<UpdateOrderDto> updateOrderValidator,
-    IValidator<CreateOrderDto> createOrderValidator,
+  //  IValidator<CreateOrderDto> createOrderValidator,
     DunderMifflinContext context) : IDunderMifflinService
 {
     public OrderDto CreateOrder(CreateOrderDto createOrderDto)
     {
-        createOrderValidator.ValidateAndThrow(createOrderDto);
-        var order = createOrderDto.ToOrder();
+        //createOrderValidator.ValidateAndThrow(createOrderDto);
+
+        var orderEntries = createOrderDto.OrderEntries.Select(dto => new OrderEntry()
+        {
+            Quantity = dto.Quantity,
+            ProductId = dto.ProductId
+        }).ToList();
+
+        var totalAmount = 0.0;
+
+        foreach (OrderEntry oe in orderEntries)
+        {
+            var price = context.Papers.Where(paper => oe.ProductId == paper.Id).Select(paper => paper.Price).ToList().First();
+            price = price * oe.Quantity;
+            totalAmount += price;
+        }
+        
+        var order = createOrderDto.ToOrder(totalAmount, orderEntries);
         context.Orders.Add(order);
         context.SaveChanges();
         return new OrderDto().FromEntity(order);

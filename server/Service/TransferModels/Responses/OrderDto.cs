@@ -16,7 +16,7 @@ public class OrderDto
 
     public int? CustomerId { get; set; }
 
-    public ICollection<OrderEntry> OrderEntries { get; set; }
+    public ICollection<OrderEntryDto> OrderEntries { get; set; }
 
     public OrderDto FromEntity(Order order)
     {
@@ -28,7 +28,7 @@ public class OrderDto
             Status = order.Status,
             TotalAmount = order.TotalAmount,
             CustomerId = order.CustomerId,
-            OrderEntries = order.OrderEntries
+            OrderEntries = order.OrderEntries.Select(o => new OrderEntryDto() { OrderId = o.OrderId, ProductId = o.ProductId, Quantity = o.Quantity, Id = o.Id} ).ToList()
         };
     }
 }

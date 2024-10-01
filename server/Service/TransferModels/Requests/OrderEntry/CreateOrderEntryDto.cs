@@ -6,7 +6,6 @@ public class CreateOrderEntryDto
 
     public int? ProductId { get; set; }
 
-    public int? OrderId { get; set; }
 
     public DataAccess.Models.OrderEntry ToOrderEntry()
     {

@@ -16,8 +16,6 @@ public class PaperDto
 
     public string Picture { get; set; }
 
-    public ICollection<OrderEntry> OrderEntries { get; set; }
-
     public ICollection<Property> Properties { get; set; }
 
     public PaperDto FromEntity(Paper paper)
@@ -30,7 +28,6 @@ public class PaperDto
             Stock = paper.Stock,
             Price = paper.Price,
             Picture = paper.Picture,
-            OrderEntries = paper.OrderEntries,
             Properties = paper.Properties
         };
     }
