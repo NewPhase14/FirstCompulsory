@@ -64,7 +64,6 @@ export default function ProductTable() {
             <table className="table">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>Product</th>
                     <th>Stock</th>
                     <th>Discontinued</th>
@@ -85,7 +84,7 @@ export default function ProductTable() {
                                     <div className="font-bold">{paper.name}</div>
                                 </div>
                             </td>
-                            <td>{paper.stock ? "In Stock" : "Out of Stock"}</td>
+                            <td>{paper.stock}</td>
                             <td>{paper.discontinued ? "Yes" : "No"}</td>
                             <td>
                                 <button

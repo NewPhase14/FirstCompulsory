@@ -14,10 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\API\API.csproj" />
-      <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-      <ProjectReference Include="..\Service\Service.csproj" />
-      <ProjectReference Include="..\SharedTestDependencies\SharedTestDependencies.csproj" />
+        <ProjectReference Include="..\API\API.csproj"/>
+        <ProjectReference Include="..\DataAccess\DataAccess.csproj"/>
+        <ProjectReference Include="..\Service\Service.csproj"/>
+        <ProjectReference Include="..\SharedTestDependencies\SharedTestDependencies.csproj"/>
     </ItemGroup>
 
 </Project>

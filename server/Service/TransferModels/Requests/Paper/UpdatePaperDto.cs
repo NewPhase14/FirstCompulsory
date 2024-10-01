@@ -1,6 +1,4 @@
-using DataAccess.Models;
-
-namespace Service.TransferModels.Requests;
+namespace Service.TransferModels.Requests.Paper;
 
 public class UpdatePaperDto
 {
@@ -12,19 +10,22 @@ public class UpdatePaperDto
     public int Stock { get; set; }
 
     public double Price { get; set; }
-    
+
     public string Picture { get; set; }
 
-    public Paper ToPaper()
+    public ICollection<DataAccess.Models.Property> Properties { get; set; }
+
+    public DataAccess.Models.Paper ToPaper()
     {
-        return new Paper()
+        return new DataAccess.Models.Paper
         {
             Id = Id,
             Name = Name,
             Discontinued = Discontinued,
             Stock = Stock,
             Price = Price,
-            Picture = Picture
+            Picture = Picture,
+            Properties = Properties
         };
     }
 }

@@ -1,11 +1,7 @@
-using DataAccess.Models;
-
-namespace Service.TransferModels.Requests;
+namespace Service.TransferModels.Requests.Order;
 
 public class CreateOrderDto
 {
-    public int Id { get; set; }
-
     public DateTime OrderDate { get; set; }
 
     public DateOnly? DeliveryDate { get; set; }
@@ -15,20 +11,17 @@ public class CreateOrderDto
     public double TotalAmount { get; set; }
 
     public int? CustomerId { get; set; }
-    
-    public ICollection<DataAccess.Models.OrderEntry> OrderEntries { get; set; }
 
-    public Order ToOrder()
+
+    public DataAccess.Models.Order ToOrder()
     {
-        return new Order()
+        return new DataAccess.Models.Order
         {
-            Id = Id,
             OrderDate = OrderDate,
             DeliveryDate = DeliveryDate,
             Status = Status,
             TotalAmount = TotalAmount,
-            CustomerId = CustomerId,
-            OrderEntries = OrderEntries
+            CustomerId = CustomerId
         };
     }
 }

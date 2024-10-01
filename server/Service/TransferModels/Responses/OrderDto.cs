@@ -15,12 +15,12 @@ public class OrderDto
     public double TotalAmount { get; set; }
 
     public int? CustomerId { get; set; }
-    
+
     public ICollection<OrderEntry> OrderEntries { get; set; }
-    
-    public static OrderDto FromEntity(Order order)
+
+    public OrderDto FromEntity(Order order)
     {
-        return new OrderDto()
+        return new OrderDto
         {
             Id = order.Id,
             OrderDate = order.OrderDate,

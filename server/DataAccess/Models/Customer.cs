@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace DataAccess.Models;
 
-namespace DataAccess.Models;
-
-public partial class Customer
+public class Customer
 {
     public int Id { get; set; }
 

@@ -1,7 +1,7 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service;
-using Service.TransferModels.Requests;
+using Service.TransferModels.Requests.Paper;
 
 namespace API.Controllers;
 
@@ -24,7 +24,7 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
         var paper = service.UpdatePaper(updatePaperDto);
         return Ok(paper);
     }
-    
+
     [HttpDelete]
     [Route("/api/[controller]/{id}")]
     public ActionResult<Paper> DeletePaper(int id)
@@ -40,7 +40,7 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
         var papers = service.GetAllPapers();
         return Ok(papers);
     }
-    
+
     [HttpGet]
     [Route("/api/[controller]/{id}")]
     public ActionResult<Paper> GetPaperById(int id)

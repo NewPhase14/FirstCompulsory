@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Service;
 using Service.Validators;
+using Service.Validators.CustomerValidators;
 
 namespace API;
 
@@ -23,12 +24,13 @@ public class Program
         builder.Services.AddDbContext<DunderMifflinContext>((serviceProvider, options) =>
         {
             var appOptions = serviceProvider.GetRequiredService<IOptions<AppOptions>>().Value;
-            options.UseNpgsql(Environment.GetEnvironmentVariable("DbConnectionString") 
+            options.UseNpgsql(Environment.GetEnvironmentVariable("DbConnectionString")
                               ?? appOptions.DbConnectionString);
             Console.WriteLine(appOptions);
             options.EnableSensitiveDataLogging();
         });
-        builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerValidator>());
+        builder.Services.AddFluentValidation(fv =>
+            fv.RegisterValidatorsFromAssemblyContaining<CreateCustomerValidator>());
         builder.Services.AddScoped<IDunderMifflinService, DunderMifflinService>();
         builder.Services.AddControllers();
         builder.Services.AddOpenApiDocument();
@@ -60,5 +62,4 @@ public class Program
 
         app.Run();
     }
-    
 }

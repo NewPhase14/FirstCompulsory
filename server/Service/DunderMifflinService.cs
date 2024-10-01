@@ -2,11 +2,14 @@ using DataAccess;
 using DataAccess.Models;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Service.TransferModels.Requests;
+using Service.TransferModels.Requests.Customer;
+using Service.TransferModels.Requests.Order;
+using Service.TransferModels.Requests.OrderEntry;
+using Service.TransferModels.Requests.Paper;
+using Service.TransferModels.Requests.Property;
 using Service.TransferModels.Responses;
 
 namespace Service;
-
 
 public interface IDunderMifflinService
 {
@@ -15,33 +18,55 @@ public interface IDunderMifflinService
     public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto);
     public void DeleteOrder(int id);
     public OrderDto GetAllOrders();
-    
+
+    //OrderEntry
+    public OrderEntryDto CreateOrderEntry(CreateOrderEntryDto createOrderEntryDto);
+    public void DeleteOrderEntry(int id);
+    public OrderEntryDto GetAllOrderEntries();
+
+
     //Customer
     public CustomerDto CreateCustomer(CreateCustomerDto createCustomerDto);
     public CustomerDto UpdateCustomer(UpdateCustomerDto updateCustomerDto);
     public void DeleteCustomer(int id);
     public List<Customer> GetAllCustomers();
-    
+
     //Paper
     public PaperDto CreatePaper(CreatePaperDto createPaperDto);
     public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto);
     public void DeletePaper(int id);
     public List<Paper> GetAllPapers();
     public PaperDto GetPaperById(int id);
+
+    //Property
+    public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto);
+    public PropertyDto UpdateProperty(UpdatePropertyDto updatePropertyDto);
+    public void DeleteProperty(int id);
+    public List<Property> GetAllProperties();
+    public PropertyDto GetPropertyById(int id);
 }
 
-
 public class DunderMifflinService(
-    IValidator<CreateCustomerDto> createCustomerValidator, 
-    IValidator<UpdateCustomerDto> updateCustomerValidator, 
+    IValidator<CreateCustomerDto> createCustomerValidator,
+    IValidator<UpdateCustomerDto> updateCustomerValidator,
     IValidator<CreatePaperDto> createPaperValidator,
     IValidator<UpdatePaperDto> updatePaperValidator,
-    DunderMifflinContext context) : IDunderMifflinService 
+    IValidator<CreatePropertyDto> createPropertyValidator,
+    IValidator<UpdatePropertyDto> updatePropertyValidator,
+    IValidator<CreateOrderEntryDto> createOrderEntryValidator,
+    IValidator<UpdateOrderDto> updateOrderValidator,
+    IValidator<CreateOrderDto> createOrderValidator,
+    DunderMifflinContext context) : IDunderMifflinService
 {
     public OrderDto CreateOrder(CreateOrderDto createOrderDto)
     {
-        throw new NotImplementedException();
+        createOrderValidator.ValidateAndThrow(createOrderDto);
+        var order = createOrderDto.ToOrder();
+        context.Orders.Add(order);
+        context.SaveChanges();
+        return new OrderDto().FromEntity(order);
     }
+
 
     public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto)
     {
@@ -54,6 +79,25 @@ public class DunderMifflinService(
     }
 
     public OrderDto GetAllOrders()
+    {
+        throw new NotImplementedException();
+    }
+
+    public OrderEntryDto CreateOrderEntry(CreateOrderEntryDto createOrderEntryDto)
+    {
+        createOrderEntryValidator.ValidateAndThrow(createOrderEntryDto);
+        var orderEntry = createOrderEntryDto.ToOrderEntry();
+        context.OrderEntries.Add(orderEntry);
+        context.SaveChanges();
+        return new OrderEntryDto().FromEntity(orderEntry);
+    }
+
+    public void DeleteOrderEntry(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public OrderEntryDto GetAllOrderEntries()
     {
         throw new NotImplementedException();
     }
@@ -74,7 +118,6 @@ public class DunderMifflinService(
         context.Customers.Update(customer);
         context.SaveChanges();
         return new CustomerDto().FromEntity(customer);
-        
     }
 
     public void DeleteCustomer(int id)
@@ -114,10 +157,44 @@ public class DunderMifflinService(
     {
         return context.Papers.OrderBy(p => p.Id).ToList();
     }
-    
+
     public PaperDto GetPaperById(int id)
     {
         var paper = context.Papers.Find(id);
         return new PaperDto().FromEntity(paper);
+    }
+
+    public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto)
+    {
+        createPropertyValidator.ValidateAndThrow(createPropertyDto);
+        var property = createPropertyDto.ToProperty();
+        context.Properties.Add(property);
+        context.SaveChanges();
+        return new PropertyDto().FromEntity(property);
+    }
+
+    public PropertyDto UpdateProperty(UpdatePropertyDto updatePropertyDto)
+    {
+        updatePropertyValidator.ValidateAndThrow(updatePropertyDto);
+        var property = updatePropertyDto.ToProperty();
+        context.Properties.Update(property);
+        context.SaveChanges();
+        return new PropertyDto().FromEntity(property);
+    }
+
+    public void DeleteProperty(int id)
+    {
+        context.Properties.Where(p => p.Id == id).ExecuteDelete();
+    }
+
+    public List<Property> GetAllProperties()
+    {
+        return context.Properties.OrderBy(p => p.Id).ToList();
+    }
+
+    public PropertyDto GetPropertyById(int id)
+    {
+        var property = context.Properties.Find(id);
+        return new PropertyDto().FromEntity(property);
     }
 }

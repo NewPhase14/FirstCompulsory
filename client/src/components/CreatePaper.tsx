@@ -49,7 +49,7 @@ export default function CreatePaper() {
     };
 
     return (
-        <div className="mt-4 flex justify-center">
+        <div>
             <button
                 className="btn"
                 onClick={() => {

@@ -1,11 +1,10 @@
 using FluentValidation;
-using Service.TransferModels.Requests;
+using Service.TransferModels.Requests.Customer;
 
-namespace Service.Validators;
+namespace Service.Validators.CustomerValidators;
 
 public class CreateCustomerValidator : AbstractValidator<CreateCustomerDto>
 {
-
     public CreateCustomerValidator()
     {
         RuleFor(x => x.Name.Length).GreaterThan(1);
@@ -13,5 +12,4 @@ public class CreateCustomerValidator : AbstractValidator<CreateCustomerDto>
         RuleFor(x => x.Phone).NotEmpty();
         RuleFor(x => x.Address).NotEmpty();
     }
-
 }

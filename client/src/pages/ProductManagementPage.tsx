@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar.tsx";
 import ProductTable from "../components/ProductTable.tsx";
-import CreatePaper from "../components/CreatePaper.tsx";
+import ParentPaperProperty from "../components/ParentPaperProperty.tsx";
 import { Toaster } from 'react-hot-toast';
 import {useInitializeData} from "../useInitializeData.ts";
 
@@ -11,7 +11,7 @@ export default function ProductManagementPage() {
   return (
     <>
       <Navbar />
-        < CreatePaper />
+        <ParentPaperProperty />
       <ProductTable />
         <Toaster position={"top-right"}/>
     </>

@@ -1,21 +1,19 @@
-using DataAccess.Models;
-
-namespace Service.TransferModels.Requests;
+namespace Service.TransferModels.Requests.Customer;
 
 public class UpdateCustomerDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    
+
     public string? Address { get; set; }
-    
+
     public string? Phone { get; set; }
-    
+
     public string? Email { get; set; }
-    
-    public Customer ToCustomer()
+
+    public DataAccess.Models.Customer ToCustomer()
     {
-        return new Customer()
+        return new DataAccess.Models.Customer
         {
             Id = Id,
             Name = Name,
@@ -24,5 +22,4 @@ public class UpdateCustomerDto
             Email = Email
         };
     }
-
 }

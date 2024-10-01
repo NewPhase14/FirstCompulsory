@@ -1,7 +1,7 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service;
-using Service.TransferModels.Requests;
+using Service.TransferModels.Requests.Customer;
 
 namespace API.Controllers;
 
@@ -9,7 +9,6 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class CustomerController(IDunderMifflinService service) : ControllerBase
 {
-
     [HttpPost]
     [Route("")]
     public ActionResult<Customer> CreateCustomer(CreateCustomerDto createCustomerDto)
@@ -33,5 +32,4 @@ public class CustomerController(IDunderMifflinService service) : ControllerBase
         var customers = service.GetAllCustomers();
         return Ok(customers);
     }
-    
 }

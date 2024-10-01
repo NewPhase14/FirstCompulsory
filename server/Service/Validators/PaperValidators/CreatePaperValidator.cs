@@ -1,7 +1,7 @@
 using FluentValidation;
-using Service.TransferModels.Requests;
+using Service.TransferModels.Requests.Paper;
 
-namespace Service.Validators;
+namespace Service.Validators.PaperValidators;
 
 public class CreatePaperValidator : AbstractValidator<CreatePaperDto>
 {

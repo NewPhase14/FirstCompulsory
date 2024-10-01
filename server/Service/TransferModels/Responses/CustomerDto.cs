@@ -15,10 +15,10 @@ public class CustomerDto
     public string? Email { get; set; }
 
     public ICollection<Order> Orders { get; set; }
-    
+
     public CustomerDto FromEntity(Customer customer)
     {
-        return new CustomerDto()
+        return new CustomerDto
         {
             Id = customer.Id,
             Name = customer.Name,
@@ -28,5 +28,4 @@ public class CustomerDto
             Orders = customer.Orders
         };
     }
-    
 }

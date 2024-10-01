@@ -85,6 +85,18 @@ export interface UpdateCustomerDto {
   email?: string | null;
 }
 
+export interface CreateOrderDto {
+  /** @format date-time */
+  orderDate?: string;
+  /** @format date */
+  deliveryDate?: string | null;
+  status?: string;
+  /** @format double */
+  totalAmount?: number;
+  /** @format int32 */
+  customerId?: number | null;
+}
+
 export interface CreatePaperDto {
   name?: string;
   discontinued?: boolean;
@@ -93,6 +105,7 @@ export interface CreatePaperDto {
   /** @format double */
   price?: number;
   picture?: string;
+  properties?: Property[];
 }
 
 export interface UpdatePaperDto {
@@ -105,6 +118,17 @@ export interface UpdatePaperDto {
   /** @format double */
   price?: number;
   picture?: string;
+  properties?: Property[];
+}
+
+export interface CreatePropertyDto {
+  name?: string;
+}
+
+export interface UpdatePropertyDto {
+  /** @format int32 */
+  id?: number;
+  name?: string;
 }
 
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, HeadersDefaults, ResponseType } from "axios";
@@ -300,6 +324,23 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Order
+     * @name OrderCreateOrder
+     * @request POST:/api/Order
+     */
+    orderCreateOrder: (data: CreateOrderDto, params: RequestParams = {}) =>
+      this.request<Order, any>({
+        path: `/api/Order`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Paper
      * @name PaperCreatePaper
      * @request POST:/api/Paper
@@ -371,6 +412,85 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     paperGetPaperById: (id: number, params: RequestParams = {}) =>
       this.request<Paper, any>({
         path: `/api/Paper/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyCreateProperty
+     * @request POST:/api/Property
+     */
+    propertyCreateProperty: (data: CreatePropertyDto, params: RequestParams = {}) =>
+      this.request<Property, any>({
+        path: `/api/Property`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyUpdateProperty
+     * @request PUT:/api/Property
+     */
+    propertyUpdateProperty: (data: UpdatePropertyDto, params: RequestParams = {}) =>
+      this.request<Property, any>({
+        path: `/api/Property`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyGetAllProperties
+     * @request GET:/api/Property
+     */
+    propertyGetAllProperties: (params: RequestParams = {}) =>
+      this.request<Property[], any>({
+        path: `/api/Property`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyDeleteProperty
+     * @request DELETE:/api/Property/{id}
+     */
+    propertyDeleteProperty: (id: number, params: RequestParams = {}) =>
+      this.request<Property, any>({
+        path: `/api/Property/${id}`,
+        method: "DELETE",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Property
+     * @name PropertyGetPropertyById
+     * @request GET:/api/Property/{id}
+     */
+    propertyGetPropertyById: (id: number, params: RequestParams = {}) =>
+      this.request<Property, any>({
+        path: `/api/Property/${id}`,
         method: "GET",
         format: "json",
         ...params,
