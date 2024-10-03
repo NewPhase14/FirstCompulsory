@@ -1,6 +1,9 @@
-﻿namespace DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Paper
+namespace DataAccess.Models;
+
+public partial class Paper
 {
     public int Id { get; set; }
 
@@ -12,12 +15,11 @@ public class Paper
 
     public double Price { get; set; }
 
-    public string? Picture { get; set; }
+    public string Picture { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
 
     public virtual ICollection<OrderEntry> OrderEntries { get; set; } = new List<OrderEntry>();
 
     public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
-    
-    
-
 }

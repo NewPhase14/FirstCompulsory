@@ -1,6 +1,9 @@
-﻿namespace DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Order
+namespace DataAccess.Models;
+
+public partial class Order
 {
     public int Id { get; set; }
 

@@ -1,6 +1,9 @@
-﻿namespace DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Customer
+namespace DataAccess.Models;
+
+public partial class Customer
 {
     public int Id { get; set; }
 

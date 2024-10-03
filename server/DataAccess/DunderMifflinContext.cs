@@ -1,4 +1,6 @@
-﻿using DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess;
@@ -104,6 +106,9 @@ public partial class DunderMifflinContext : DbContext
             entity.HasIndex(e => e.Name, "unique_product_name").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(255)
+                .HasColumnName("description");
             entity.Property(e => e.Discontinued)
                 .HasDefaultValue(false)
                 .HasColumnName("discontinued");
@@ -111,7 +116,7 @@ public partial class DunderMifflinContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.Picture)
-                .HasMaxLength(255)
+                .HasMaxLength(1000)
                 .HasColumnName("picture");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Stock)

@@ -1,6 +1,9 @@
-﻿namespace DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
 
-public class Property
+namespace DataAccess.Models;
+
+public partial class Property
 {
     public int Id { get; set; }
 
