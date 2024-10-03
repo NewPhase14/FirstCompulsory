@@ -17,4 +17,7 @@ public class Paper
     public virtual ICollection<OrderEntry> OrderEntries { get; set; } = new List<OrderEntry>();
 
     public virtual ICollection<Property> Properties { get; set; } = new List<Property>();
+    
+    
+
 }

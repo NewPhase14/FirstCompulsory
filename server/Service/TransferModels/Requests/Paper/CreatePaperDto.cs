@@ -11,8 +11,7 @@ public class CreatePaperDto
     public double Price { get; set; }
 
     public string Picture { get; set; }
-
-    public ICollection<DataAccess.Models.Property> Properties { get; set; }
+    
 
     public DataAccess.Models.Paper ToPaper()
     {
@@ -23,7 +22,6 @@ public class CreatePaperDto
             Stock = Stock,
             Price = Price,
             Picture = Picture,
-            Properties = Properties
         };
     }
 }

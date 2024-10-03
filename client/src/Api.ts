@@ -85,7 +85,9 @@ export interface UpdateCustomerDto {
   email?: string | null;
 }
 
-export interface CreateOrderDto {
+export interface OrderDto {
+  /** @format int32 */
+  id?: number;
   /** @format date-time */
   orderDate?: string;
   /** @format date */
@@ -95,6 +97,31 @@ export interface CreateOrderDto {
   totalAmount?: number;
   /** @format int32 */
   customerId?: number | null;
+  orderEntries?: OrderEntryDto[];
+}
+
+export interface OrderEntryDto {
+  /** @format int32 */
+  id?: number;
+  /** @format int32 */
+  quantity?: number;
+  /** @format int32 */
+  productId?: number | null;
+  /** @format int32 */
+  orderId?: number | null;
+}
+
+export interface CreateOrderDto {
+  /** @format int32 */
+  customerId?: number | null;
+  orderEntries?: CreateOrderEntryDto[];
+}
+
+export interface CreateOrderEntryDto {
+  /** @format int32 */
+  quantity?: number;
+  /** @format int32 */
+  productId?: number | null;
 }
 
 export interface CreatePaperDto {
@@ -329,7 +356,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request POST:/api/Order
      */
     orderCreateOrder: (data: CreateOrderDto, params: RequestParams = {}) =>
-      this.request<Order, any>({
+      this.request<OrderDto, any>({
         path: `/api/Order`,
         method: "POST",
         body: data,
@@ -414,6 +441,29 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
         path: `/api/Paper/${id}`,
         method: "GET",
         format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperAddPropertyToPaper
+     * @request POST:/api/Paper/addPropertyToPaper
+     */
+    paperAddPropertyToPaper: (
+      query?: {
+        /** @format int32 */
+        paperId?: number;
+        /** @format int32 */
+        propertyId?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, any>({
+        path: `/api/Paper/addPropertyToPaper`,
+        method: "POST",
+        query: query,
         ...params,
       }),
 

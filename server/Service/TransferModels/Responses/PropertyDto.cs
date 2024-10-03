@@ -1,7 +1,5 @@
 using DataAccess.Models;
 
-namespace Service.TransferModels.Responses;
-
 public class PropertyDto
 {
     public int Id { get; set; }

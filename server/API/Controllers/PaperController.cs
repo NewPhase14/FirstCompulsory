@@ -35,7 +35,7 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
 
     [HttpGet]
     [Route("")]
-    public ActionResult<List<Paper>> GetAllPapers()
+    public ActionResult<List<PaperDto>> GetAllPapers()
     {
         var papers = service.GetAllPapers();
         return Ok(papers);
@@ -47,5 +47,15 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
     {
         var paper = service.GetPaperById(id);
         return Ok(paper);
+    }
+    
+    [HttpPost]
+    [Route("/api/[controller]/addPropertyToPaper")]
+    
+    public ActionResult<Paper> AddPropertyToPaper(int paperId, int propertyId)
+    {
+      
+        service.AddPropertyToPaper(paperId, propertyId);
+        return NoContent();
     }
 }

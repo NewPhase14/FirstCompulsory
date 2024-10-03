@@ -35,7 +35,7 @@ public interface IDunderMifflinService
     public PaperDto CreatePaper(CreatePaperDto createPaperDto);
     public PaperDto UpdatePaper(UpdatePaperDto updatePaperDto);
     public void DeletePaper(int id);
-    public List<Paper> GetAllPapers();
+    public List<PaperDto> GetAllPapers();
     public PaperDto GetPaperById(int id);
 
     //Property
@@ -44,6 +44,9 @@ public interface IDunderMifflinService
     public void DeleteProperty(int id);
     public List<Property> GetAllProperties();
     public PropertyDto GetPropertyById(int id);
+    
+    //PaperToProperty
+    public void AddPropertyToPaper(int paperId, int propertyId);
 }
 
 public class DunderMifflinService(
@@ -169,17 +172,22 @@ public class DunderMifflinService(
         context.Papers.Where(p => p.Id == id).ExecuteDelete();
     }
 
-    public List<Paper> GetAllPapers()
+    public List<PaperDto> GetAllPapers()
     {
-        return context.Papers.OrderBy(p => p.Id).ToList();
+        var paper = context.Papers
+            .Include(p => p.Properties).Select(p => new PaperDto().FromEntity(p))
+            .ToList();
+        return paper;
     }
 
-    public PaperDto GetPaperById(int id)
-    {
-        var paper = context.Papers.Find(id);
-        return new PaperDto().FromEntity(paper);
-    }
 
+   
+        public PaperDto GetPaperById(int id)
+        {
+            var paper = context.Papers.Where(p => p.Id == id).Include(p => p.Properties).ToList().First();
+            return new PaperDto().FromEntity(paper);
+        }
+    
     public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto)
     {
         createPropertyValidator.ValidateAndThrow(createPropertyDto);
@@ -212,5 +220,14 @@ public class DunderMifflinService(
     {
         var property = context.Properties.Find(id);
         return new PropertyDto().FromEntity(property);
+    }
+
+    public void AddPropertyToPaper(int paperId, int propertyId)
+    {
+        var paper = context.Papers.Find(paperId);
+        var property = context.Properties.Find(propertyId);
+        paper.Properties.Add(property);
+        context.SaveChanges();
+
     }
 }

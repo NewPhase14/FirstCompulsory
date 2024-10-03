@@ -1,22 +1,17 @@
 using DataAccess.Models;
-
-namespace Service.TransferModels.Responses;
+using Service.TransferModels.Responses;
+using System.Collections.Generic;
 
 public class PaperDto
 {
     public int Id { get; set; }
-
     public string Name { get; set; } = null!;
-
     public bool Discontinued { get; set; }
-
     public int Stock { get; set; }
-
     public double Price { get; set; }
-
     public string Picture { get; set; }
 
-    public ICollection<Property> Properties { get; set; }
+    public List<PropertyDto> Property { get; set; } = new List<PropertyDto>();
 
     public PaperDto FromEntity(Paper paper)
     {
@@ -28,7 +23,7 @@ public class PaperDto
             Stock = paper.Stock,
             Price = paper.Price,
             Picture = paper.Picture,
-            Properties = paper.Properties
+            Property = paper.Properties.Select(p => new PropertyDto().FromEntity(p)).ToList()
         };
     }
 }
