@@ -132,7 +132,6 @@ export interface CreatePaperDto {
   /** @format double */
   price?: number;
   picture?: string;
-  properties?: Property[];
 }
 
 export interface UpdatePaperDto {
@@ -146,6 +145,25 @@ export interface UpdatePaperDto {
   price?: number;
   picture?: string;
   properties?: Property[];
+}
+
+export interface PaperDto {
+  /** @format int32 */
+  id?: number;
+  name?: string;
+  discontinued?: boolean;
+  /** @format int32 */
+  stock?: number;
+  /** @format double */
+  price?: number;
+  picture?: string;
+  property?: PropertyDto[];
+}
+
+export interface PropertyDto {
+  /** @format int32 */
+  id?: number;
+  name?: string;
 }
 
 export interface CreatePropertyDto {
@@ -407,7 +425,7 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * @request GET:/api/Paper
      */
     paperGetAllPapers: (params: RequestParams = {}) =>
-      this.request<Paper[], any>({
+      this.request<PaperDto[], any>({
         path: `/api/Paper`,
         method: "GET",
         format: "json",
@@ -460,10 +478,11 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       },
       params: RequestParams = {},
     ) =>
-      this.request<void, any>({
+      this.request<Paper, any>({
         path: `/api/Paper/addPropertyToPaper`,
         method: "POST",
         query: query,
+        format: "json",
         ...params,
       }),
 
