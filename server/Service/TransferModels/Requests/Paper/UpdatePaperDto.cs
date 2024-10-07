@@ -12,6 +12,8 @@ public class UpdatePaperDto
     public double Price { get; set; }
 
     public string Picture { get; set; }
+    
+    public string Description { get; set; }
 
     public ICollection<DataAccess.Models.Property> Properties { get; set; }
 
@@ -25,6 +27,7 @@ public class UpdatePaperDto
             Stock = Stock,
             Price = Price,
             Picture = Picture,
+            Description = Description,
             Properties = Properties
         };
     }

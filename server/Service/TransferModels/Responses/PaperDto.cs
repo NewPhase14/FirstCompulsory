@@ -11,6 +11,7 @@ public class PaperDto
     public double Price { get; set; }
     public string Picture { get; set; }
 
+    public string Description { get; set; } 
     public List<PropertyDto> Property { get; set; } = new List<PropertyDto>();
 
     public PaperDto FromEntity(Paper paper)
@@ -23,6 +24,7 @@ public class PaperDto
             Stock = paper.Stock,
             Price = paper.Price,
             Picture = paper.Picture,
+            Description = paper.Description,
             Property = paper.Properties.Select(p => new PropertyDto().FromEntity(p)).ToList()
         };
     }

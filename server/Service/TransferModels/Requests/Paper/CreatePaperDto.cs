@@ -12,6 +12,8 @@ public class CreatePaperDto
 
     public string Picture { get; set; }
     
+    public string Description { get; set; }
+    
 
     public DataAccess.Models.Paper ToPaper()
     {
@@ -22,6 +24,7 @@ public class CreatePaperDto
             Stock = Stock,
             Price = Price,
             Picture = Picture,
+            Description = Description
         };
     }
 }

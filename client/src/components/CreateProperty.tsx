@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useAtom } from "jotai";
 import { PropertyAtom } from "../atoms/PropertyAtom.tsx";
@@ -9,9 +8,8 @@ import PropertyModal from "./PropertyModal";
 export default function CreateProperty() {
     const [properties, setProperties] = useAtom(PropertyAtom);
     const [showPopup, setShowPopup] = useState(false);
-    const [formData, setFormData] = useState({
-        name: "",
-    });
+    const [formData, setFormData] = useState({ name: "" });
+    const [selectedProperty, setSelectedProperty] = useState(null);
 
     const handleConfirm = async (data) => {
         const newProperty = { name: data.name };
@@ -33,9 +31,20 @@ export default function CreateProperty() {
         }
     };
 
-    return (
-        <div >
+    const handleDelete = async (propertyId) => {
+        try {
+            await http.api.propertyDeleteProperty(propertyId);
+            setProperties(properties.filter((property) => property.id !== propertyId)); // Update state
+            toast.success("Property deleted successfully!");
+            setSelectedProperty(null);
+        } catch (error) {
+            toast.error("Failed to delete property.");
+            console.error(error);
+        }
+    };
 
+    return (
+        <div>
             <button
                 className="btn"
                 onClick={() => {
@@ -52,6 +61,10 @@ export default function CreateProperty() {
                 formData={formData}
                 onChange={setFormData}
                 onConfirm={handleConfirm}
+                properties={properties}
+                selectedProperty={selectedProperty}
+                onSelectProperty={setSelectedProperty}
+                onDelete={handleDelete}
             />
         </div>
     );

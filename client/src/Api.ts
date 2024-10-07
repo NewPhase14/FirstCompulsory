@@ -57,7 +57,8 @@ export interface Paper {
   stock?: number;
   /** @format double */
   price?: number;
-  picture?: string | null;
+  picture?: string;
+  description?: string;
   orderEntries?: OrderEntry[];
   properties?: Property[];
 }
@@ -132,6 +133,7 @@ export interface CreatePaperDto {
   /** @format double */
   price?: number;
   picture?: string;
+  description?: string;
 }
 
 export interface UpdatePaperDto {
@@ -144,6 +146,7 @@ export interface UpdatePaperDto {
   /** @format double */
   price?: number;
   picture?: string;
+  description?: string;
   properties?: Property[];
 }
 
@@ -157,6 +160,7 @@ export interface PaperDto {
   /** @format double */
   price?: number;
   picture?: string;
+  description?: string;
   property?: PropertyDto[];
 }
 

@@ -57,6 +57,17 @@ const ProductModal = ({ isOpen, onClose, formData, onChange, onConfirm }) => {
                 </div>
 
                 <div className="mb-4">
+                    <label className="label">Description:</label>
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={onChange}
+                        className="input input-bordered w-full"
+                        placeholder="Enter description"
+                    />
+                </div>
+
+                <div className="mb-4">
                     <label className="label">Discontinued:</label>
                     <div className="flex gap-4">
                         <label>

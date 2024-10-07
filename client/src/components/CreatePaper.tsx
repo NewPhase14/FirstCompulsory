@@ -14,6 +14,7 @@ export default function CreatePaper() {
         price: "",
         discontinued: "no",
         picture: "",
+        description: "",
     });
 
     const handleInputChange = (e) => {
@@ -31,6 +32,7 @@ export default function CreatePaper() {
             stock: parseInt(data.stock) || 0,
             price: parseFloat(data.price) || 0.0,
             picture: data.picture || null,
+            description: data.description || null,
         };
 
         try {
@@ -53,7 +55,7 @@ export default function CreatePaper() {
             <button
                 className="btn"
                 onClick={() => {
-                    setFormData({ name: "", stock: "", price: "", discontinued: "no", picture: "" });
+                    setFormData({ name: "", stock: "", price: "", discontinued: "no", picture: "", description: "" });
                     setShowPopup(true);
                 }}
             >
