@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAtom } from "jotai";
-import { PropertyAtom } from "../atoms/PropertyAtom.tsx";
+import { PropertyAtom } from "../atoms/PropertyAtom";
 import { http } from "../http";
 import toast from "react-hot-toast";
 import PropertyModal from "./PropertyModal";
@@ -8,33 +8,35 @@ import PropertyModal from "./PropertyModal";
 export default function CreateProperty() {
     const [properties, setProperties] = useAtom(PropertyAtom);
     const [showPopup, setShowPopup] = useState(false);
-    const [formData, setFormData] = useState({ name: "" });
+    const [formData, setFormData] = useState({ propertyName: "" });
     const [selectedProperty, setSelectedProperty] = useState(null);
 
     const handleConfirm = async (data) => {
-        const newProperty = { name: data.name };
+        const newProperty = {
+            name: data.propertyName
+        };
 
         try {
             const response = await http.api.propertyCreateProperty(newProperty);
             if (response && response.data) {
-                setProperties([...properties, response.data]);
+                setProperties((prev) => [...prev, response.data]);
                 toast.success("Property created successfully!");
                 setShowPopup(false);
+                setSelectedProperty(null);
+                setFormData({ propertyName: "" });
             } else {
                 throw new Error("Failed to create property.");
             }
         } catch (error) {
             toast.error("Failed to create property.");
             console.error(error);
-        } finally {
-            setFormData({ name: "" });
         }
     };
 
     const handleDelete = async (propertyId) => {
         try {
             await http.api.propertyDeleteProperty(propertyId);
-            setProperties(properties.filter((property) => property.id !== propertyId)); // Update state
+            setProperties((prev) => prev.filter((property) => property.id !== propertyId));
             toast.success("Property deleted successfully!");
             setSelectedProperty(null);
         } catch (error) {
@@ -46,15 +48,16 @@ export default function CreateProperty() {
     return (
         <div>
             <button
-                className="btn"
+                className="square-button"
                 onClick={() => {
-                    setFormData({ name: "" });
+                    setFormData({ propertyName: "" });
                     setShowPopup(true);
                 }}
             >
                 Create Property
             </button>
 
+            {/* Modal component */}
             <PropertyModal
                 isOpen={showPopup}
                 onClose={() => setShowPopup(false)}

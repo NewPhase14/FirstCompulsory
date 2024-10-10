@@ -17,4 +17,20 @@ public class OrderController(IDunderMifflinService service) : ControllerBase
         var order = service.CreateOrder(createOrderDto);
         return Ok(order);
     }
+    
+    [HttpGet]
+    [Route("")]
+    public ActionResult<List<OrderDto>> GetAllOrders()
+    {
+        var orders = service.GetAllOrders();
+        return Ok(orders);
+    }
+    
+    [HttpGet]
+    [Route("customer/{customerId}")]
+    public ActionResult<List<OrderDto>> GetOrdersByCustomerId(int customerId)
+    {
+        var orders = service.GetOrderByCustomerId(customerId);
+        return Ok(orders);
+    }
 }

@@ -17,7 +17,8 @@ public interface IDunderMifflinService
     public OrderDto CreateOrder(CreateOrderDto createOrderDto);
     public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto);
     public void DeleteOrder(int id);
-    public OrderDto GetAllOrders();
+    public List<OrderDto> GetAllOrders();
+    public List<OrderDto> GetOrderByCustomerId(int customerId);
 
     //OrderEntry
     public OrderEntryDto CreateOrderEntry(CreateOrderEntryDto createOrderEntryDto);
@@ -47,6 +48,8 @@ public interface IDunderMifflinService
     
     //PaperToProperty
     public void AddPropertyToPaper(int paperId, int propertyId);
+    public void RemovePropertyFromPaper(int paperId, int propertyId);
+    public List<Property> GetPaperProperties(int paperId);
 }
 
 public class DunderMifflinService(
@@ -97,10 +100,41 @@ public class DunderMifflinService(
         throw new NotImplementedException();
     }
 
-    public OrderDto GetAllOrders()
+    public List<OrderDto> GetAllOrders()
     {
-        throw new NotImplementedException();
+       var orders = context.Orders
+            .Select(o => new OrderDto
+            {
+                Id = o.Id,
+                CustomerId = o.CustomerId,
+                TotalAmount = o.TotalAmount,
+                Status = o.Status,
+                DeliveryDate = o.DeliveryDate,
+                OrderDate = o.OrderDate
+            })
+            .ToList();
+        
+        return orders;
     }
+
+    public List<OrderDto> GetOrderByCustomerId(int customerId)
+    {
+        var orders = context.Orders
+            .Where(o => o.CustomerId == customerId)
+            .Select(o => new OrderDto
+            {
+                Id = o.Id,
+                CustomerId = o.CustomerId,
+                TotalAmount = o.TotalAmount,
+                Status = o.Status,
+                DeliveryDate = o.DeliveryDate,
+                OrderDate = o.OrderDate
+            })
+            .ToList();
+        
+        return orders;
+    }
+
 
     public OrderEntryDto CreateOrderEntry(CreateOrderEntryDto createOrderEntryDto)
     {
@@ -228,6 +262,27 @@ public class DunderMifflinService(
         var property = context.Properties.Find(propertyId);
         paper.Properties.Add(property);
         context.SaveChanges();
+    }
 
+    public void RemovePropertyFromPaper(int paperId, int propertyId)
+    {
+        var paper = context.Papers.Include(p => p.Properties)
+            .FirstOrDefault(p => p.Id == paperId);
+
+        var propertyToRemove = paper.Properties.FirstOrDefault(p => p.Id == propertyId);
+        if (propertyToRemove != null)
+        {
+            paper.Properties.Remove(propertyToRemove);
+            context.SaveChanges();
+        }
+    }
+
+    public List<Property> GetPaperProperties(int paperId)
+    {
+        return context.Papers
+            .Include(p => p.Properties)
+            .Where(p => p.Id == paperId)
+            .SelectMany(p => p.Properties)
+            .ToList();
     }
 }

@@ -51,11 +51,27 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
     
     [HttpPost]
     [Route("/api/[controller]/addPropertyToPaper")]
-    
     public ActionResult<Paper> AddPropertyToPaper(int paperId, int propertyId)
     {
-      
         service.AddPropertyToPaper(paperId, propertyId);
         return NoContent();
     }
+    
+    [HttpDelete]
+    [Route("/api/[controller]/removePropertyFromPaper")]
+    public ActionResult<Paper> RemovePropertyFromPaper(int paperId, int propertyId)
+    {
+        service.RemovePropertyFromPaper(paperId, propertyId);
+        return NoContent();
+    }
+    
+    [HttpGet]
+    [Route("/api/[controller]/getPaperProperties")]
+    public ActionResult<List<Property>> GetPaperProperties(int paperId)
+    {
+        var properties = service.GetPaperProperties(paperId);
+        return Ok(properties);
+    }
+    
+    
 }

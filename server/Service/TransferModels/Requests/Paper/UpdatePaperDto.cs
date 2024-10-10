@@ -15,8 +15,6 @@ public class UpdatePaperDto
     
     public string Description { get; set; }
 
-    public ICollection<DataAccess.Models.Property> Properties { get; set; }
-
     public DataAccess.Models.Paper ToPaper()
     {
         return new DataAccess.Models.Paper
@@ -28,7 +26,6 @@ public class UpdatePaperDto
             Price = Price,
             Picture = Picture,
             Description = Description,
-            Properties = Properties
         };
     }
 }

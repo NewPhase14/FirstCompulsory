@@ -11,9 +11,10 @@ export default function ProductManagementPage() {
   return (
     <>
       <Navbar />
+        <Toaster position={"top-right"}/>
         <ParentPaperProperty />
       <ProductTable />
-        <Toaster position={"top-right"}/>
+
     </>
   );
 }

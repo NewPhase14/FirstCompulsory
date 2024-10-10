@@ -4,9 +4,11 @@ import { PaperAtom } from "../atoms/PaperAtom.tsx";
 import ProductModal from "./ProductModal";
 import { http } from "../http";
 import toast from "react-hot-toast";
+import {PropertyAtom} from "../atoms/PropertyAtom.tsx";
 
 export default function CreatePaper() {
     const [papers, setPapers] = useAtom(PaperAtom);
+    const [properties, setProperties] = useAtom(PropertyAtom);
     const [showPopup, setShowPopup] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -53,7 +55,7 @@ export default function CreatePaper() {
     return (
         <div>
             <button
-                className="btn"
+                className="square-button"
                 onClick={() => {
                     setFormData({ name: "", stock: "", price: "", discontinued: "no", picture: "", description: "" });
                     setShowPopup(true);

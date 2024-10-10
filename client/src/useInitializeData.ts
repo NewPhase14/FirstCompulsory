@@ -3,10 +3,12 @@ import { CustomerAtom } from "./atoms/CustomerAtom.tsx";
 import { useEffect } from "react";
 import { http } from "./http.ts";
 import { PaperAtom } from "./atoms/PaperAtom.tsx";
+import { PropertyAtom } from "./atoms/PropertyAtom.tsx";
 
 export function useInitializeData() {
   const [, setCustomers] = useAtom(CustomerAtom);
   const [, setPapers] = useAtom(PaperAtom);
+    const [, setProperties] = useAtom(PropertyAtom);
 
   useEffect(() => {
     http.api
@@ -29,4 +31,15 @@ export function useInitializeData() {
         console.log(e);
       });
   }, []);
+
+    useEffect(() => {
+        http.api
+        .propertyGetAllProperties()
+        .then((response) => {
+            setProperties(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }, []);
 }

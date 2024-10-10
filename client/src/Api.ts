@@ -147,7 +147,6 @@ export interface UpdatePaperDto {
   price?: number;
   picture?: string;
   description?: string;
-  properties?: Property[];
 }
 
 export interface PaperDto {
@@ -390,6 +389,53 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Order
+     * @name OrderGetAllOrders
+     * @request GET:/api/Order
+     */
+    orderGetAllOrders: (params: RequestParams = {}) =>
+      this.request<OrderDto[], any>({
+        path: `/api/Order`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Order
+     * @name OrderGetOrdersByCustomerId
+     * @request GET:/api/Order/customer/{customerId}
+     */
+    orderGetOrdersByCustomerId: (customerId: number, params: RequestParams = {}) =>
+      this.request<OrderDto[], any>({
+        path: `/api/Order/customer/${customerId}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags OrderEntry
+     * @name OrderEntryCreateOrderEntry
+     * @request POST:/api/OrderEntry
+     */
+    orderEntryCreateOrderEntry: (data: CreateOrderEntryDto, params: RequestParams = {}) =>
+      this.request<OrderEntryDto, any>({
+        path: `/api/OrderEntry`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Paper
      * @name PaperCreatePaper
      * @request POST:/api/Paper
@@ -485,6 +531,52 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       this.request<Paper, any>({
         path: `/api/Paper/addPropertyToPaper`,
         method: "POST",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperRemovePropertyFromPaper
+     * @request DELETE:/api/Paper/removePropertyFromPaper
+     */
+    paperRemovePropertyFromPaper: (
+      query?: {
+        /** @format int32 */
+        paperId?: number;
+        /** @format int32 */
+        propertyId?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<Paper, any>({
+        path: `/api/Paper/removePropertyFromPaper`,
+        method: "DELETE",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperGetPaperProperties
+     * @request GET:/api/Paper/getPaperProperties
+     */
+    paperGetPaperProperties: (
+      query?: {
+        /** @format int32 */
+        paperId?: number;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<Property[], any>({
+        path: `/api/Paper/getPaperProperties`,
+        method: "GET",
         query: query,
         format: "json",
         ...params,

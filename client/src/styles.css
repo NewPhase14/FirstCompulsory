@@ -21,3 +21,31 @@
     object-fit: fill;
 }
 
+
+/* Button for create buttons on product management */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 16px; /* Space between buttons */
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.square-button {
+    width: 200px;
+    height: 50px;
+    background-color: #2059ac;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Animation effects */
+}
+
+.square-button:hover {
+    background-color: #1a4493;
+    transform: scale(1.05); /* Scale up on hover */
+}
+
+

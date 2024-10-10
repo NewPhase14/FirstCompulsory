@@ -6,7 +6,7 @@ import CreateProperty from "./CreateProperty.tsx";
 
 export default function ParentPaperProperty() {
     return (
-        <div className="mt-4 flex justify-center space-x-4">
+        <div className="button-container">
             <CreatePaper />
             <CreateProperty />
         </div>
