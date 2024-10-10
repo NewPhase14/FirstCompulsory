@@ -92,8 +92,11 @@ public class DunderMifflinService(
 
     public OrderDto UpdateOrder(UpdateOrderDto updateOrderDto)
     {
-        throw new NotImplementedException();
-    }
+            var order = updateOrderDto.ToOrder();
+            context.Orders.Update(order);
+            context.SaveChanges();
+            return new OrderDto().FromEntity(order);
+        }
 
     public void DeleteOrder(int id)
     {

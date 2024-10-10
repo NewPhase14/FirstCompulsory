@@ -4,11 +4,13 @@ import { useEffect } from "react";
 import { http } from "./http.ts";
 import { PaperAtom } from "./atoms/PaperAtom.tsx";
 import { PropertyAtom } from "./atoms/PropertyAtom.tsx";
+import {OrderAtom} from "./atoms/OrderAtom.tsx";
 
 export function useInitializeData() {
   const [, setCustomers] = useAtom(CustomerAtom);
   const [, setPapers] = useAtom(PaperAtom);
     const [, setProperties] = useAtom(PropertyAtom);
+    const [, setOrders] = useAtom(OrderAtom);
 
   useEffect(() => {
     http.api
@@ -42,4 +44,16 @@ export function useInitializeData() {
             console.log(e);
         });
     }, []);
+
+    useEffect(() => {
+        http.api
+        .orderGetAllOrders()
+        .then((response) => {
+            setOrders(response.data);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }, []);
+
 }

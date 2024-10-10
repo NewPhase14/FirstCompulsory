@@ -19,7 +19,7 @@ public class CustomerController(IDunderMifflinService service) : ControllerBase
 
     [HttpPut]
     [Route("")]
-    public ActionResult<Customer> UpdatePatient(UpdateCustomerDto updateCustomerDto)
+    public ActionResult<Customer> UpdateCustomer(UpdateCustomerDto updateCustomerDto)
     {
         var customer = service.UpdateCustomer(updateCustomerDto);
         return Ok(customer);

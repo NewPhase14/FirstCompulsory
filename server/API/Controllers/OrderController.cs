@@ -26,6 +26,15 @@ public class OrderController(IDunderMifflinService service) : ControllerBase
         return Ok(orders);
     }
     
+    [HttpPut]
+    [Route("")]
+    public ActionResult<OrderDto> UpdateOrder(UpdateOrderDto updateOrderDto)
+    {
+        var order = service.UpdateOrder(updateOrderDto);
+        return Ok(order);
+    }
+
+    
     [HttpGet]
     [Route("customer/{customerId}")]
     public ActionResult<List<OrderDto>> GetOrdersByCustomerId(int customerId)

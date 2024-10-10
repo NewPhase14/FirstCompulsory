@@ -1,10 +1,11 @@
 import Navbar from "../components/Navbar.tsx";
+import OrderTable from "../components/OrderTable.tsx";
 
 export default function OrderHistoryPage() {
   return (
     <>
       <Navbar />
-      <div>Order history</div>
+      <OrderTable />
     </>
   );
 }
