@@ -3,8 +3,27 @@ import Dunder from "../assets/DunderMifflin-Logo.png";
 // @ts-ignore
 import Account from "../assets/Account.png";
 import { Link } from "react-router-dom";
+import { useAtom } from "jotai";
+import { OrderEntryAtom } from "../atoms/OrderEntryAtom.tsx";
+import { useEffect } from "react";
+import { OrderEntry } from "../Api.ts";
+import { useInitializeData } from "../useInitializeData.ts";
+import { getTotalCost } from "./getTotalCost.ts";
 
 export default function Navbar() {
+  const [orderEntries] = useAtom(OrderEntryAtom);
+
+  const [, setCart] = useAtom(OrderEntryAtom);
+  useEffect(() => {
+    const entries = localStorage.getItem("orderEntries");
+    if (entries) {
+      let orderEntries1: OrderEntry[] = JSON.parse(entries) as OrderEntry[];
+      setCart(orderEntries1);
+    }
+  }, []);
+
+  useInitializeData();
+
   return (
     <div className="navbar shadow bg-base-100">
       <div className="navbar-start">
@@ -19,11 +38,6 @@ export default function Navbar() {
         <Link to="/product" className="btn btn-ghost text-xl mx-10">
           Products
         </Link>
-        <input
-          type="text"
-          placeholder="Type here"
-          className="input input-bordered w-full max-w-xs mx-10"
-        />
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
@@ -38,7 +52,9 @@ export default function Navbar() {
               >
                 <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <span className="badge badge-sm indicator-item">8</span>
+              <span className="badge badge-sm indicator-item">
+                {orderEntries.length}
+              </span>
             </div>
           </div>
           <div
@@ -46,10 +62,16 @@ export default function Navbar() {
             className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
           >
             <div className="card-body">
-              <span className="text-lg font-bold">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="text-lg font-bold">
+                {orderEntries.length} Items
+              </span>
+              <span className="text-info">Subtotal: ${getTotalCost()}</span>
               <div className="card-actions">
-                <button className="btn btn-primary btn-block">View cart</button>
+                <Link to={"/shoppingcart"}>
+                  <button className="btn btn-primary btn-block">
+                    View cart
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -8,6 +8,22 @@
     object-fit: scale-down;
 }
 
+.homepage-div {
+    width: 100%;
+    height: 720px;
+    background-image: url("assets/DunderMifflinPic.png");
+    background-repeat: no-repeat;
+    background-size: 100%, 100%;
+}
+
+.text-outline-white {
+    text-shadow:
+            2px 2px 0px white,
+            -2px -2px 0px white,
+            -2px 2px 0px white,
+            2px -2px 0px white;
+}
+
 .account {
     max-height: 100%;
     max-width: 100%;
