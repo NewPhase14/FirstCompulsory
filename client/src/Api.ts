@@ -137,7 +137,6 @@ export interface UpdateOrderDto {
   totalAmount?: number;
   /** @format int32 */
   customerId?: number | null;
-  orderEntries?: OrderEntry[];
 }
 
 export interface CreatePaperDto {

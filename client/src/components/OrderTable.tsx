@@ -4,13 +4,38 @@ import { OrderAtom } from "../atoms/OrderAtom.tsx";
 import { http } from "../http.ts";
 import toast from "react-hot-toast";
 
-// Helper function to format the date
+
 const formatDate = (dateString) => {
     return new Date(dateString).toISOString().split('T')[0]; // Extract only the date part
 };
 
 export default function OrderTable() {
     const [orders, setOrders] = useAtom(OrderAtom);
+
+    const handleConfirm = async (data) => {
+        const updatedOrder = {
+            id: data.id,
+            status: "completed",
+            totalAmount: data.totalAmount,
+            orderDate: data.orderDate,
+            deliveryDate: data.deliveryDate,
+            customerId: data.customerId,
+        };
+
+        try {
+            const response = await http.api.orderUpdateOrder(updatedOrder);
+            if (response && response.data) {
+                setOrders((prev) => prev.map((order) => (order.id === data.id ? response.data : order)));
+                toast.success("Order updated successfully!");
+            } else {
+                throw new Error("Failed to update order.");
+            }
+        } catch (error) {
+            toast.error("Failed to update order.");
+            console.error(error);
+        }
+    }
+
 
     return (
         <div className="overflow-x-auto m-5">
@@ -40,6 +65,7 @@ export default function OrderTable() {
                                 {order.status === "pending" && ( // Changed 'pending' to 'Pending'
                                     <button
                                         className="bg-green-600 text-white px-4 py-2 rounded"
+                                        onClick={() => handleConfirm(order)}
                                     >
                                         Mark as completed
                                     </button>

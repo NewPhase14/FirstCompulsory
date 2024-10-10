@@ -5,8 +5,5 @@ namespace Service.Validators.OrderValidators;
 
 public class UpdateOrderValidator : AbstractValidator<UpdateOrderDto>
 {
-    public UpdateOrderValidator()
-    {
-        RuleFor(x => x.OrderEntries).NotEmpty();
-    }
+    
 }

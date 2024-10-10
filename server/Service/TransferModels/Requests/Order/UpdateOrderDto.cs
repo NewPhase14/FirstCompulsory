@@ -14,8 +14,6 @@ public class UpdateOrderDto
 
     public int? CustomerId { get; set; }
 
-    public ICollection<DataAccess.Models.OrderEntry> OrderEntries { get; set; }
-
     public DataAccess.Models.Order ToOrder()
     {
         return new DataAccess.Models.Order
@@ -26,7 +24,6 @@ public class UpdateOrderDto
             Status = Status,
             TotalAmount = TotalAmount,
             CustomerId = CustomerId,
-            OrderEntries = OrderEntries
         };
     }
 }
