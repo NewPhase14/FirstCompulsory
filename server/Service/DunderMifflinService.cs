@@ -38,6 +38,8 @@ public interface IDunderMifflinService
     public void DeletePaper(int id);
     public List<PaperDto> GetAllPapers();
     public PaperDto GetPaperById(int id);
+    public List<PaperDto> GetPapersByPrice();
+    public List<PaperDto> GetPapersByName();
 
     //Property
     public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto);
@@ -224,8 +226,20 @@ public class DunderMifflinService(
             var paper = context.Papers.Where(p => p.Id == id).Include(p => p.Properties).ToList().First();
             return new PaperDto().FromEntity(paper);
         }
-    
-    public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto)
+
+        public List<PaperDto> GetPapersByPrice()
+        {
+            var papers = context.Papers.OrderBy(p => p.Price).Select(p => new PaperDto().FromEntity(p)).ToList();
+            return papers;
+        }
+
+        public List<PaperDto> GetPapersByName()
+        {
+            var papers = context.Papers.OrderBy(p => p.Name).Select(p => new PaperDto().FromEntity(p)).ToList();
+            return papers;
+        }
+
+        public PropertyDto CreateProperty(CreatePropertyDto createPropertyDto)
     {
         createPropertyValidator.ValidateAndThrow(createPropertyDto);
         var property = createPropertyDto.ToProperty();

@@ -72,6 +72,23 @@ public class PaperController(IDunderMifflinService service) : ControllerBase
         var properties = service.GetPaperProperties(paperId);
         return Ok(properties);
     }
+
+    [HttpGet]
+    [Route("/api/[controller]/getPaperByPrice")]
+    public ActionResult<List<PaperDto>> GetPaperByPrice()
+    {
+        var papers = service.GetPapersByPrice();
+        return Ok(papers);
+    }
+    
+    
+    [HttpGet]
+    [Route("/api/[controller]/getPaperByName")]
+    public ActionResult<List<PaperDto>> GetPaperByName()
+    {
+        var papers = service.GetPapersByName();
+        return Ok(papers);
+    }
     
     
 }

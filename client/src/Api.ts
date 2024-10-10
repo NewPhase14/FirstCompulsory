@@ -616,6 +616,36 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
     /**
      * No description
      *
+     * @tags Paper
+     * @name PaperGetPaperByPrice
+     * @request GET:/api/Paper/getPaperByPrice
+     */
+    paperGetPaperByPrice: (params: RequestParams = {}) =>
+      this.request<PaperDto[], any>({
+        path: `/api/Paper/getPaperByPrice`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Paper
+     * @name PaperGetPaperByName
+     * @request GET:/api/Paper/getPaperByName
+     */
+    paperGetPaperByName: (params: RequestParams = {}) =>
+      this.request<PaperDto[], any>({
+        path: `/api/Paper/getPaperByName`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
      * @tags Property
      * @name PropertyCreateProperty
      * @request POST:/api/Property
