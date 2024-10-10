@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { PaperAtom } from "../atoms/PaperAtom.tsx";
 import { PropertyAtom } from "../atoms/PropertyAtom.tsx";
 import ProductModal from "./ProductModal";
-import PropertiesModificationModal from "./PropertiesModificationModal";
+import PropertiesModificationModal from "./PropertiesModificationModal.tsx";
 import { http } from "../http";
 import { toast } from "react-hot-toast";
 
