@@ -66,7 +66,15 @@ export default function ShoppingCartPage() {
     const customerId = await createCustomer();
     if (customerId) {
       await createOrder(customerId);
-      localStorage.removeItem("orderEntry");
+      localStorage.removeItem("orderEntries");
+      setNewCustomer(
+            {
+                name: "",
+                address: "",
+                phone: "",
+                email: "",
+            }
+      );
     }
   };
 
@@ -112,6 +120,7 @@ export default function ShoppingCartPage() {
                 <input
                     type="text"
                     id="name"
+                    value={newCustomer.name}
                     onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })}
                     placeholder="Name"
                     className="w-full p-2 rounded border border-gray-600 bg-gray-900 text-gray-200 focus:outline-none focus:ring-2"
@@ -122,6 +131,7 @@ export default function ShoppingCartPage() {
                 <input
                     type="text"
                     id="address"
+                    value={newCustomer.address!}
                     onChange={(e) => setNewCustomer({ ...newCustomer, address: e.target.value })}
                     placeholder="Address"
                     className="w-full p-2 rounded border border-gray-600 bg-gray-900 text-gray-200 focus:outline-none focus:ring-2"
@@ -132,6 +142,7 @@ export default function ShoppingCartPage() {
                 <input
                     type="email"
                     id="email"
+                    value={newCustomer.email!}
                     onChange={(e) => setNewCustomer({ ...newCustomer, email: e.target.value })}
                     placeholder="Email"
                     className="w-full p-2 rounded border border-gray-600 bg-gray-900 text-gray-200 focus:outline-none focus:ring-2"
@@ -142,6 +153,7 @@ export default function ShoppingCartPage() {
                 <input
                     type="tel"
                     id="phone"
+                    value={newCustomer.phone!}
                     onChange={(e) => setNewCustomer({ ...newCustomer, phone: e.target.value })}
                     placeholder="Phone"
                     className="w-full p-2 rounded border border-gray-600 bg-gray-900 text-gray-200 focus:outline-none focus:ring-2"
