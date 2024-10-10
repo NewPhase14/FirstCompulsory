@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import {
   PaperAtom,
@@ -10,23 +10,21 @@ import { OrderEntry, Paper } from "../Api";
 import { toast } from "react-hot-toast";
 
 export default function PaperCards() {
-  const [papers] = useAtom(PaperAtom);
+  const [papers, setPapers] = useAtom(PaperAtom);
   const [papersByPrice] = useAtom(PaperByPriceAtom);
   const [papersByName] = useAtom(PaperByNameAtom);
-  const [selectedOrderBy, setSelectedOrderBy] =
-    useState<Paper[]>(papersByPrice);
-
   const [orderEntries, setOrderEntries] = useAtom(OrderEntryAtom);
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const [sortOption, setSortOption] = useState("default");
 
   const handleQuantityChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    paperId: number,
+      event: React.ChangeEvent<HTMLInputElement>,
+      paperId: number
   ) => {
     const value = parseInt(event.target.value);
     setQuantities((prev) => ({
       ...prev,
-      [paperId]: value >= 0 ? value : 0, // Ensure non-negative values
+      [paperId]: value >= 0 ? value : 0,
     }));
   };
 
@@ -49,74 +47,84 @@ export default function PaperCards() {
     localStorage.setItem("orderEntries", JSON.stringify(newValue));
 
     toast.success(
-      `Successfully added ${quantity} ${paper.name}(s) to the order!`,
+        `Successfully added ${quantity} ${paper.name}(s) to the order!`
     );
-    setQuantities({ ...quantities, [paper.id!]: 0 }); // Reset quantity to 0
+    setQuantities((prev) => ({ ...prev, [paper.id!]: 0 })); // Reset quantity to 0
   };
 
-  function handleSelectedOrderBy(orderBy: number) {
-    if (orderBy == 1) {
-      setSelectedOrderBy(papersByPrice!);
-      console.log(selectedOrderBy);
+  const sortPapers = (papers: Paper[], sortOption: string) => {
+    switch (sortOption) {
+      case "price":
+        return papersByPrice;
+      case "name":
+        return papersByName;
+      default:
+        return papers;
     }
-    if (orderBy == 2) {
-      setSelectedOrderBy(papersByName!);
-    }
-  }
+  };
+
+  const sortedPapers = sortPapers(papers, sortOption);
 
   return (
-    <>
-      <select className="select w-full max-w-xs">
-        <option disabled selected>
-          Order by
-        </option>
-        <option>Order by price</option>
-        <option>Order by name</option>
-      </select>
-      <div className="flex justify-center">
-        <div className="grid grid-cols-3 gap-4 m-5">
-          {selectedOrderBy.map((paper) => {
-            return (
-              <div
-                key={paper.id}
-                className="max-w-sm bg-white border rounded-lg shadow-lg p-6"
-              >
-                <img className="w-full" src={paper.picture!} alt="A4 paper" />
-                <div className="mt-4">
-                  <h2 className="text-xl font-semibold text-gray-900">
-                    {paper.name}
-                  </h2>
-                  <p className="mt-1 text-gray-600">{paper.description}</p>
-                  <p className="mt-2 text-gray-900 font-bold">${paper.price}</p>
-
-                  <label
-                    htmlFor={`quantity-${paper.id}`}
-                    className="block text-sm font-medium text-gray-700 mt-4"
-                  >
-                    Quantity
-                  </label>
-                  <input
-                    id={`quantity-${paper.id}`}
-                    type="number"
-                    min={0}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    placeholder="Enter quantity"
-                    value={quantities[paper.id!] || ""}
-                    onChange={(event) => handleQuantityChange(event, paper.id!)}
-                  />
-
-                  <button
-                    onClick={() => createOrderEntry(paper)}
-                    className="w-full mt-4 bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                  >
-                    Buy Now
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+      <>
+        <div className="flex justify-end m-5">
+          <select
+              className="select select-bordered w-full max-w-xs text-gray-700"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+          >
+            <option disabled={true} value="default"> Sort by </option>
+            <option value="price">Price: Low to High</option>
+            <option value="name">Name: A to Z</option>
+          </select>
         </div>
-      </div>
-    </>
+
+        <div className="flex justify-center">
+          <div className="grid grid-cols-3 gap-4 m-5">
+            {sortedPapers.length === 0 ? (
+                <p className="text-gray-500">No products available.</p>
+            ) : (
+                sortedPapers.map((paper) => (
+                    <div
+                        key={paper.id}
+                        className="max-w-sm bg-white border rounded-lg shadow-lg p-6"
+                    >
+                      <img className="w-full" src={paper.picture} alt={paper.name} />
+                      <div className="mt-4">
+                        <h2 className="text-xl font-semibold text-gray-900">
+                          {paper.name}
+                        </h2>
+                        <p className="mt-1 text-gray-600">{paper.description}</p>
+                        <p className="mt-2 text-gray-900 font-bold">${paper.price}</p>
+
+                        <label
+                            htmlFor={`quantity-${paper.id}`}
+                            className="block text-sm font-medium text-gray-700 mt-4"
+                        >
+                          Quantity
+                        </label>
+                        <input
+                            id={`quantity-${paper.id}`}
+                            type="number"
+                            min={0}
+                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="Enter quantity"
+                            value={quantities[paper.id!] || ""}
+                            onChange={(event) => handleQuantityChange(event, paper.id!)}
+                        />
+
+                        <button
+                            onClick={() => createOrderEntry(paper)}
+                            className="w-full mt-4 bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                        >
+                          Buy Now
+                        </button>
+                      </div>
+                    </div>
+                ))
+            )}
+          </div>
+        </div>
+      </>
   );
 }
