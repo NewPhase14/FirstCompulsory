@@ -48,7 +48,7 @@ export default function CreateProperty() {
     return (
         <div>
             <button
-                className="square-button"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-300"
                 onClick={() => {
                     setFormData({ propertyName: "" });
                     setShowPopup(true);
@@ -57,7 +57,6 @@ export default function CreateProperty() {
                 Create Property
             </button>
 
-            {/* Modal component */}
             <PropertyModal
                 isOpen={showPopup}
                 onClose={() => setShowPopup(false)}

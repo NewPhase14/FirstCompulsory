@@ -3,9 +3,8 @@
 @tailwind utilities;
 
 .logo {
-    width: 50px;
-    height: 50px;
-    object-fit: scale-down;
+    width: 70px; /* Increased size for the logo */
+    height: auto; /* Maintain aspect ratio */
 }
 
 .homepage-div {
@@ -13,55 +12,78 @@
     height: 720px;
     background-image: url("assets/DunderMifflinPic.png");
     background-repeat: no-repeat;
-    background-size: 100%, 100%;
+    background-size: cover; /* Ensures the image covers the div */
+    position: relative; /* Required for overlay positioning */
+    display: flex; /* Align items in the center */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    overflow: hidden; /* Prevent content overflow */
+}
+
+.overlay {
+    position: absolute; /* Position the overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay for contrast */
+    z-index: 1; /* Ensure it's behind text but above the background */
+}
+
+.text-content {
+    position: relative; /* Positioning for text content */
+    color: white; /* White text for contrast */
+    text-align: center; /* Center the text */
+    z-index: 2; /* Above the overlay */
 }
 
 .text-outline-white {
     text-shadow:
-            2px 2px 0px white,
-            -2px -2px 0px white,
-            -2px 2px 0px white,
-            2px -2px 0px white;
+            2px 2px 0px rgba(0, 0, 0, 0.7),
+            -2px -2px 0px rgba(0, 0, 0, 0.7),
+            -2px 2px 0px rgba(0, 0, 0, 0.7),
+            2px -2px 0px rgba(0, 0, 0, 0.7);
+    font-size: 2.5rem; /* Larger font size for visibility */
+    font-weight: bold; /* Bold text */
+    animation: fadeIn 2s ease-in-out; /* Fade-in animation */
 }
 
-.account {
-    max-height: 100%;
-    max-width: 100%;
-    display: block;
-    margin: auto;
-}
-
-.image {
-    width: 450px;
-    height: 450px;
-    object-fit: fill;
+/* Keyframes for fade-in effect */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 
-/* Button for create buttons on product management */
-.button-container {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 16px; /* Space between buttons */
-    margin-top: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+/* Additional styles */
+.nav-link {
+    font-size: 1.125rem; /* Slightly larger font size for links */
+    color: #333; /* Dark text for better contrast */
+    transition: color 0.3s; /* Smooth transition for hover effect */
 }
 
-.square-button {
-    width: 200px;
-    height: 50px;
-    background-color: #2059ac;
-    color: white;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
+.nav-link:hover {
+    color: #2059ac; /* Change color on hover */
+}
+
+/* Add rounded corners and shadow for dropdowns */
+.card-compact {
+    border-radius: 8px; /* Smooth edges for dropdown */
+}
+
+.dropdown-content {
+    border-radius: 8px; /* Smooth edges for dropdown menu */
+}
+
+/* Button styling for cart and account */
+.btn {
     transition: background-color 0.3s, transform 0.2s; /* Animation effects */
 }
 
-.square-button:hover {
-    background-color: #1a4493;
+.btn:hover {
     transform: scale(1.05); /* Scale up on hover */
 }
-
-

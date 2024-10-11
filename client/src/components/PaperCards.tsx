@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAtom } from "jotai";
 import {
   PaperAtom,
@@ -67,62 +67,74 @@ export default function PaperCards() {
 
   return (
       <>
-        <div className="flex justify-end m-5">
-          <select
-              className="select select-bordered w-full max-w-xs text-gray-700"
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-          >
-            <option disabled={true} value="default"> Sort by </option>
-            <option value="price">Price: Low to High</option>
-            <option value="name">Name: A to Z</option>
-          </select>
-        </div>
+        <div className="bg-gray-50 min-h-screen pt-32 p-5"> {/* Lighter background for better contrast */}
+          <div className="flex justify-end mb-12 ">
+            <select
+                className="select w-full max-w-xs text-gray-800 border border-blue-600 rounded-lg bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+            >
+              <option disabled={true} value="default">
+                Sort by
+              </option>
+              <option value="price">Price: Low to High</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </div>
 
-        <div className="flex justify-center">
-          <div className="grid grid-cols-3 gap-4 m-5">
-            {sortedPapers.length === 0 ? (
-                <p className="text-gray-500">No products available.</p>
-            ) : (
-                sortedPapers.map((paper) => (
-                    <div
-                        key={paper.id}
-                        className="max-w-sm bg-white border rounded-lg shadow-lg p-6"
-                    >
-                      <img className="w-full" src={paper.picture} alt={paper.name} />
-                      <div className="mt-4">
-                        <h2 className="text-xl font-semibold text-gray-900">
-                          {paper.name}
-                        </h2>
-                        <p className="mt-1 text-gray-600">{paper.description}</p>
-                        <p className="mt-2 text-gray-900 font-bold">${paper.price}</p>
+          <div className="flex justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12"> {/* Increased spacing */}
+              {sortedPapers.length === 0 ? (
+                  <p className="text-gray-500">No products available.</p>
+              ) : (
+                  sortedPapers.map((paper) => (
+                      <div
+                          key={paper.id}
+                          className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden transition-transform duration-200 hover:shadow-xl hover:scale-105"
+                      >
+                        <div className="h-48 overflow-hidden rounded-t-lg">
+                          <img
+                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                              src={paper.picture}
+                              alt={paper.name}
+                          />
+                        </div>
+                        <div className="p-6">
+                          <h2 className="text-xl font-bold text-black">
+                            {paper.name}
+                          </h2>
+                          <p className="mt-2 text-gray-600">{paper.description}</p>
+                          <p className="mt-4 text-black font-semibold text-lg">
+                            ${paper.price}
+                          </p>
 
-                        <label
-                            htmlFor={`quantity-${paper.id}`}
-                            className="block text-sm font-medium text-gray-700 mt-4"
-                        >
-                          Quantity
-                        </label>
-                        <input
-                            id={`quantity-${paper.id}`}
-                            type="number"
-                            min={0}
-                            className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                            placeholder="Enter quantity"
-                            value={quantities[paper.id!] || ""}
-                            onChange={(event) => handleQuantityChange(event, paper.id!)}
-                        />
+                          <label
+                              htmlFor={`quantity-${paper.id}`}
+                              className="block text-sm font-medium text-gray-700 mt-4"
+                          >
+                            Quantity
+                          </label>
+                          <input
+                              id={`quantity-${paper.id}`}
+                              type="number"
+                              min={0}
+                              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                              placeholder="Enter quantity"
+                              value={quantities[paper.id!] || ""}
+                              onChange={(event) => handleQuantityChange(event, paper.id!)}
+                          />
 
-                        <button
-                            onClick={() => createOrderEntry(paper)}
-                            className="w-full mt-4 bg-teal-500 text-white py-2 px-4 rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
-                        >
-                          Buy Now
-                        </button>
+                          <button
+                              onClick={() => createOrderEntry(paper)}
+                              className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200"
+                          >
+                            Buy Now
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                ))
-            )}
+                  ))
+              )}
+            </div>
           </div>
         </div>
       </>

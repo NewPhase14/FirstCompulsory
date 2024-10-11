@@ -4,11 +4,9 @@ import { PaperAtom } from "../atoms/PaperAtom.tsx";
 import ProductModal from "./ProductModal";
 import { http } from "../http";
 import toast from "react-hot-toast";
-import {PropertyAtom} from "../atoms/PropertyAtom.tsx";
 
 export default function CreatePaper() {
     const [papers, setPapers] = useAtom(PaperAtom);
-    const [properties, setProperties] = useAtom(PropertyAtom);
     const [showPopup, setShowPopup] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -30,7 +28,7 @@ export default function CreatePaper() {
     const handleConfirm = async (data) => {
         const newPaper = {
             name: data.name,
-            discontinued: data.discontinued === "yes", // Convert string to boolean
+            discontinued: data.discontinued === "yes",
             stock: parseInt(data.stock) || 0,
             price: parseFloat(data.price) || 0.0,
             picture: data.picture || null,
@@ -55,13 +53,13 @@ export default function CreatePaper() {
     return (
         <div>
             <button
-                className="square-button"
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-300"
                 onClick={() => {
                     setFormData({ name: "", stock: "", price: "", discontinued: "no", picture: "", description: "" });
                     setShowPopup(true);
                 }}
             >
-                Create product
+                Create Product
             </button>
 
             <ProductModal

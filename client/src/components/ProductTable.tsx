@@ -84,80 +84,82 @@ export default function ProductTable() {
 
 
     return (
-        <div className="overflow-x-auto m-5">
-            <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-                <thead className="bg-gray-100 border-b border-gray-200">
-                <tr>
-                    <th className="px-6 py-4 text-left text-gray-600">Product</th>
-                    <th className="px-6 py-4 text-left text-gray-600">Stock</th>
-                    <th className="px-6 py-4 text-left text-gray-600">Discontinued</th>
-                    <th className="px-6 py-4 text-left text-gray-600">Actions</th>
-                </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                {papers.length > 0 ? (
-                    papers.map((paper) => (
-                        <tr key={paper.id} className="hover:bg-gray-50 transition">
-                            <td className="flex items-center px-6 py-4">
-                                <img
-                                    className="mask mask-squircle h-12 w-12"
-                                    src={paper.picture}
-                                    alt={paper.name}
-                                />
-                                <span className="ml-4 font-medium text-gray-700">
+        <div className="bg-gray-50 min-h-screen">
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
+                    <thead className="bg-gray-100 border-b border-gray-200">
+                    <tr>
+                        <th className="px-6 py-4 text-left text-gray-600">Product</th>
+                        <th className="px-6 py-4 text-left text-gray-600">Stock</th>
+                        <th className="px-6 py-4 text-left text-gray-600">Discontinued</th>
+                        <th className="px-6 py-4 text-left text-gray-600">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                    {papers.length > 0 ? (
+                        papers.map((paper) => (
+                            <tr key={paper.id} className="hover:bg-gray-100 transition">
+                                <td className="flex items-center px-6 py-4">
+                                    <img
+                                        className="mask mask-squircle h-12 w-12"
+                                        src={paper.picture}
+                                        alt={paper.name}
+                                    />
+                                    <span className="ml-4 font-medium text-gray-700">
                                         {paper.name}
                                     </span>
-                            </td>
-                            <td className="px-6 py-4 text-gray-700">{paper.stock}</td>
-                            <td className="px-6 py-4 text-gray-700">
-                                {paper.discontinued ? "Yes" : "No"}
-                            </td>
-                            <td className="px-6 py-4 flex gap-2">
-                                <button
-                                    className="btn btn-outline btn-xs text-blue-600 hover:bg-blue-600 hover:text-white transition"
-                                    onClick={() => openEditModal(paper)}
-                                >
-                                    Edit
-                                </button>
-                                <button
-                                    className="btn btn-outline btn-xs text-red-600 hover:bg-red-600 hover:text-white transition"
-                                    onClick={() => deletePaper(paper.id)}
-                                >
-                                    Delete
-                                </button>
-                                <button
-                                    className="btn btn-outline btn-xs text-green-600 hover:bg-green-600 hover:text-white transition"
-                                    onClick={() => openPropertiesModal(paper.id)} // Pass paper.id to fetch properties
-                                >
-                                    Properties
-                                </button>
+                                </td>
+                                <td className="px-6 py-4 text-gray-700">{paper.stock}</td>
+                                <td className="px-6 py-4 text-gray-700">
+                                    {paper.discontinued ? "Yes" : "No"}
+                                </td>
+                                <td className="px-6 py-4 flex gap-2">
+                                    <button
+                                        className="btn btn-outline btn-xs text-blue-600 hover:bg-blue-600 hover:text-white transition"
+                                        onClick={() => openEditModal(paper)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="btn btn-outline btn-xs text-red-600 hover:bg-red-600 hover:text-white transition"
+                                        onClick={() => deletePaper(paper.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                    <button
+                                        className="btn btn-outline btn-xs text-green-600 hover:bg-green-600 hover:text-white transition"
+                                        onClick={() => openPropertiesModal(paper.id)} // Pass paper.id to fetch properties
+                                    >
+                                        Properties
+                                    </button>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td className="text-center text-gray-500" colSpan={4}>
+                                No products available.
                             </td>
                         </tr>
-                    ))
-                ) : (
-                    <tr>
-                        <td className="text-center text-gray-500" colSpan={4}>
-                            No products available.
-                        </td>
-                    </tr>
-                )}
-                </tbody>
-            </table>
+                    )}
+                    </tbody>
+                </table>
 
-            <ProductModal
-                isOpen={showPopup}
-                onClose={() => setShowPopup(false)}
-                formData={formData}
-                onChange={handleInputChange}
-                onConfirm={handleConfirm}
-            />
+                <ProductModal
+                    isOpen={showPopup}
+                    onClose={() => setShowPopup(false)}
+                    formData={formData}
+                    onChange={handleInputChange}
+                    onConfirm={handleConfirm}
+                />
 
-            <PropertiesModificationModal
-                isOpen={showPropertiesPopup}
-                onClose={() => setShowPropertiesPopup(false)}
-                allProperties={allProperties}
+                <PropertiesModificationModal
+                    isOpen={showPropertiesPopup}
+                    onClose={() => setShowPropertiesPopup(false)}
+                    allProperties={allProperties}
 
-            />
+                />
+            </div>
         </div>
-    );
-}
+            );
+            }
