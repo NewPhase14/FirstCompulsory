@@ -8,10 +8,10 @@ import NotFoundPage from "./pages/NotFoundPage.tsx";
 import ProductCatalog from "./pages/ProductCatalog.tsx";
 import OrderHistoryPage from "./pages/OrderHistoryPage.tsx";
 import ProductManagementPage from "./pages/ProductManagementPage.tsx";
-import ProductPage from "./pages/ProductPage.tsx";
 import ShoppingCartPage from "./pages/ShoppingCart.tsx";
 import { DevTools } from "jotai-devtools";
 import "jotai-devtools/styles.css";
+import CustomerPage from "./pages/CustomerPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -32,12 +32,12 @@ const router = createBrowserRouter([
     element: <ProductManagementPage />,
   },
   {
-    path: "/product/:id",
-    element: <ProductPage />,
-  },
-  {
     path: "/shoppingcart",
     element: <ShoppingCartPage />,
+  },
+  {
+    path: "/customer",
+    element: <CustomerPage />,
   },
 ]);
 

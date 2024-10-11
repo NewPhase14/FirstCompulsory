@@ -3,10 +3,10 @@ import { useAtom } from "jotai/index";
 import { CustomerAtom } from "../atoms/CustomerAtom.tsx";
 
 export default function CustomerTable() {
-  const [customers, setCustomers] = useAtom(CustomerAtom);
+  const [customers] = useAtom(CustomerAtom);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto pt-32">
       <table className="table">
         <thead>
           <tr>
