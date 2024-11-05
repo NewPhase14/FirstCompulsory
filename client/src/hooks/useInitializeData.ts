@@ -1,11 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect } from "react";
 
-import { http } from "./imports.ts";
-import {PaperAtom, PaperByNameAtom, PaperByPriceAtom} from "./imports.ts";
-import { CustomerAtom } from "./imports.ts";
-import { PropertyAtom } from "./imports.ts";
-import { OrderAtom } from "./imports.ts";
+import { http, PaperAtom, PaperByNameAtom, PaperByPriceAtom, CustomerAtom, PropertyAtom, OrderAtom} from "./imports.ts";
 
 export function useInitializeData() {
     const [, setCustomers] = useAtom(CustomerAtom);

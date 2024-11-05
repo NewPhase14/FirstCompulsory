@@ -1,4 +1,4 @@
 import { atom } from "jotai";
-import { OrderEntry } from "../models";
+import { OrderEntry } from "./import.ts";
 
 export const OrderEntryAtom = atom<OrderEntry[]>([]);
