@@ -7,7 +7,7 @@ import { useAtom } from "jotai";
 import { OrderEntryAtom } from "../atoms/OrderEntryAtom.tsx";
 import { useEffect } from "react";
 import { OrderEntry } from "../Api.ts";
-import { useInitializeData } from "../useInitializeData.ts";
+import { useInitializeData } from "../hooks/useInitializeData.ts";
 import { getTotalCost } from "./getTotalCost.ts";
 
 export default function Navbar() {
