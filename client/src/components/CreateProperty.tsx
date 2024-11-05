@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAtom } from "jotai";
-import { PropertyAtom } from "../atoms/PropertyAtom";
-import { http } from "../http";
-import toast from "react-hot-toast";
-import PropertyModal from "./PropertyModal";
+import { toast } from "react-hot-toast";
+import PropertyModal from "./PropertyModal.tsx";
+
+import { PropertyAtom, http } from "./import.ts";
 
 export default function CreateProperty() {
   const [properties, setProperties] = useAtom(PropertyAtom);

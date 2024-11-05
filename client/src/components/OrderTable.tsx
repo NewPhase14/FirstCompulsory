@@ -1,8 +1,8 @@
 import React from "react";
 import { useAtom } from "jotai";
-import { OrderAtom } from "../atoms/OrderAtom.tsx";
-import { http } from "../http.ts";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+
+import { OrderAtom, http } from "./import.ts";
 
 // Helper function to format the date
 const formatDate = (dateString) => {

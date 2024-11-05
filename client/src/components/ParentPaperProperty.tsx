@@ -1,5 +1,6 @@
 import React from "react";
-import CreatePaper from "./CreatePaper";
+
+import CreatePaper from "./paper/CreatePaper.tsx";
 import CreateProperty from "./CreateProperty.tsx";
 
 export default function ParentPaperProperty() {

@@ -1,4 +1,4 @@
-import {Api} from './Api.ts';
+import {Api} from '../models/Api.ts';
 
 export const baseUrl = 'http://localhost:5000';
 

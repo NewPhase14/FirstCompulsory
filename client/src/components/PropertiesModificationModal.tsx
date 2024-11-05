@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { http } from "../http.ts";
 import { toast, Toaster } from "react-hot-toast";
-import { Property } from "../Api.ts";
+
+import { http, Property  } from "./import.ts";
 
 const PropertiesModificationModal = ({
   isOpen,

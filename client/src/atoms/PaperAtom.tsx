@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { Paper } from "../Api.ts";
+import { Paper } from "../models";
 
 export const PaperAtom = atom<Paper[]>([]);
 export const PaperByPriceAtom = atom<Paper[]>([]);

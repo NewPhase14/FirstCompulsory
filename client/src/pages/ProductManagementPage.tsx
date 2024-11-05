@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar.tsx";
-import ProductTable from "../components/ProductTable.tsx";
+import ProductTable from "../components/paper/ProductTable.tsx";
 import ParentPaperProperty from "../components/ParentPaperProperty.tsx";
 import { Toaster } from "react-hot-toast";
 

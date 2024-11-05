@@ -4,11 +4,9 @@ import Dunder from "../assets/DunderMifflin-Logo.png";
 import Account from "../assets/Account.png";
 import { Link } from "react-router-dom";
 import { useAtom } from "jotai";
-import { OrderEntryAtom } from "../atoms/OrderEntryAtom.tsx";
 import { useEffect } from "react";
-import { OrderEntry } from "../Api.ts";
-import { useInitializeData } from "../hooks/useInitializeData.ts";
-import { getTotalCost } from "./getTotalCost.ts";
+
+import { OrderEntryAtom, OrderEntry, useInitializeData, getTotalCost  } from "./import.ts";
 
 export default function Navbar() {
   const [orderEntries] = useAtom(OrderEntryAtom);
@@ -77,7 +75,7 @@ export default function Navbar() {
               </span>
               <span className="text-gray-600">Subtotal: ${getTotalCost()}</span>
               <div className="card-actions">
-                <Link to={"/shoppingcart"}>
+                <Link to={"/shoppingCart"}>
                   <button className="btn btn-primary btn-block bg-blue-600 hover:bg-blue-700 text-white rounded-md transition duration-200 ease-in-out">
                     View cart
                   </button>

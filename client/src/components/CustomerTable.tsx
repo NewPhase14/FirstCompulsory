@@ -1,6 +1,7 @@
 import React from "react";
-import { useAtom } from "jotai/index";
-import { CustomerAtom } from "../atoms/CustomerAtom.tsx";
+import { useAtom } from "jotai";
+
+import { CustomerAtom } from "./import.ts";
 
 export default function CustomerTable() {
   const [customers] = useAtom(CustomerAtom);

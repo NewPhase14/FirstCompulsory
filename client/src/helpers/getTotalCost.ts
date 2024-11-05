@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { OrderEntryAtom } from "../atoms/OrderEntryAtom.tsx";
+import { OrderEntryAtom } from "./import.ts";
 
 export function getTotalCost() {
   const [orderEntries] = useAtom(OrderEntryAtom); // Get the order entries

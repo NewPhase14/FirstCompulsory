@@ -1,16 +1,9 @@
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "../Navbar.tsx";
 import { useAtom } from "jotai";
-import { OrderEntryAtom } from "../atoms/OrderEntryAtom.tsx";
-import { getTotalCost } from "./getTotalCost.ts";
-import {
-  Customer,
-  CreateCustomerDto,
-  CreateOrderDto,
-  CreateOrderEntryDto,
-} from "../Api.ts";
-import { http } from "../http.ts";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+
+import { OrderEntryAtom, getTotalCost, Customer, CreateCustomerDto, CreateOrderDto, CreateOrderEntryDto, http } from "../import.ts";
 
 export default function ShoppingCartPage() {
   const [orderEntry, setOrderEntry] = useAtom(OrderEntryAtom);

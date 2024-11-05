@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useAtom } from "jotai";
-import { PaperAtom } from "../atoms/PaperAtom.tsx";
-import { PropertyAtom } from "../atoms/PropertyAtom.tsx";
-import ProductModal from "./ProductModal";
-import PropertiesModificationModal from "./PropertiesModificationModal.tsx";
-import { http } from "../http";
+import ProductModal from "./ProductModal.tsx";
+import PropertiesModificationModal from "../PropertiesModificationModal.tsx";
 import { toast } from "react-hot-toast";
+
+import { PaperAtom, PropertyAtom, http } from "../import.ts";
 
 export default function ProductTable() {
   const [papers, setPapers] = useAtom(PaperAtom);

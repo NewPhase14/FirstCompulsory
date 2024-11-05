@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAtom } from "jotai";
-import { PaperAtom } from "../atoms/PaperAtom.tsx";
-import ProductModal from "./ProductModal";
-import { http } from "../http";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import ProductModal from "./ProductModal.tsx";
+
+import { PaperAtom, http } from "../import.ts";
 
 export default function CreatePaper() {
   const [papers, setPapers] = useAtom(PaperAtom);

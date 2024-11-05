@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAtom } from "jotai";
-import {
-  PaperAtom,
-  PaperByNameAtom,
-  PaperByPriceAtom,
-} from "../atoms/PaperAtom";
-import { OrderEntryAtom } from "../atoms/OrderEntryAtom";
-import { OrderEntry, Paper } from "../Api";
 import { toast } from "react-hot-toast";
+
+import { PaperAtom, PaperByNameAtom, PaperByPriceAtom, OrderEntryAtom, OrderEntry, Paper } from "../import.ts";
 
 export default function PaperCards() {
   const [papers] = useAtom(PaperAtom);

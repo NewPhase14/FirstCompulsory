@@ -1,4 +1,4 @@
 import { atom } from "jotai";
-import { Property } from "../Api.ts";
+import { Property } from "../models";
 
 export const PropertyAtom = atom<Property[]>([]);
